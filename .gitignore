@@ -1,0 +1,124 @@
+# ===================================================
+# Unity.gitignore — updated template (2025)
+# Original: https://github.com/github/gitignore/blob/master/Unity.gitignore
+# ===================================================
+
+# ------------------------------
+# Unity system folders
+# ------------------------------
+/[Ll]ibrary/            # Cache and build data
+/[Tt]emp/               # Temporary files
+/[Oo]bj/                # Intermediate build files
+/[Bb]uild/              # Output builds
+/[Bb]uilds/             # Additional builds
+/[Ll]ogs/               # Editor logs
+/[Uu]ser[Ss]ettings/    # Local user settings (layouts, shader cache, etc.)
+
+# ------------------------------
+# Memory Captures
+# ------------------------------
+/[Mm]emoryCaptures/     # Can be large and may contain sensitive data
+
+# ------------------------------
+# Asset metadata
+# ------------------------------
+!/[Aa]ssets/**/*.meta   # Keep .meta files unless the asset itself is ignored
+
+# ------------------------------
+# Plugins and auto-generated scripts
+# ------------------------------
+/[Aa]ssets/Plugins/Editor/JetBrains*  # JetBrains Rider plugin
+
+# ------------------------------
+# IDE cache and configuration
+# ------------------------------
+.vs/                    # Visual Studio
+.vscode/                # Visual Studio Code
+.gradle/                # Gradle (Android)
+.vsconfig               # Visual Studio configuration file
+
+# ------------------------------
+# Auto-generated project files
+# ------------------------------
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ------------------------------
+# Unity debug and metadata files
+# ------------------------------
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt             # Unity crash report
+
+# ------------------------------
+# Build outputs and packages
+# ------------------------------
+*.apk                   # Android build
+*.aab                   # Android App Bundle
+*.unitypackage          # Exported Unity packages
+
+# ------------------------------
+# Crashlytics files
+# ------------------------------
+crashlytics-build.properties
+
+# ------------------------------
+# Packed Addressables
+# ------------------------------
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# ------------------------------
+# Temporary Android assets
+# ------------------------------
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# ------------------------------
+# VR SDKs and plugins (excluded from repository)
+# ------------------------------
+/[Aa]ssets/Oculus/
+/[Aa]ssets/UltimateXR/
+/[Aa]ssets/XR/
+/[Aa]ssets/XRI/
+/[Aa]ssets/OpenXR/
+/[Aa]ssets/SteamVR/
+/[Aa]ssets/PicoXR/
+/[Aa]ssets/Vive/
+/[Aa]ssets/**/Samples~/
+/[Aa]ssets/**/Tests~/
+
+# ------------------------------
+# Local environment files
+# ------------------------------
+.env
+.env.local
+
+# ------------------------------
+# OS-generated files
+# ------------------------------
+.DS_Store
+Thumbs.db
+
+# ------------------------------
+# Plastic SCM (Unity Version Control)
+# ------------------------------
+[Pp]lasticSCM/
+
+# ===================================================
+# End of file
+# ===================================================
