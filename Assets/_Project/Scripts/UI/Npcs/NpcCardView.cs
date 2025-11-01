@@ -2,10 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NpcCardView : MonoBehaviour
+public sealed class NpcCardView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _nameText;
-    [SerializeField] private TMP_Text _pointsText;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _completeButton;
     [SerializeField] private GameObject _doneBadge;
@@ -28,28 +27,49 @@ public class NpcCardView : MonoBehaviour
         }
 
         UpdateState();
+        SetButtons(true);
     }
 
     public async void OnStartClick()
     {
         SetButtons(false);
 
-        ApiResult<ProgressDto> res = await _progressApi.StartQuestAsync(_npc.id);
-        if (res.IsSuccess == true)
+        var res = await _progressApi.StartQuestAsync(_npc.id);
+        if (res.IsSuccess == true && res.Data != null)
         {
-            _progress = res.Data;
-            _panel.SetStatus("Квест начат: " + _npc.name);
-
-            var p = FindObjectOfType<NpcAudioPlayer>();
-            if (p != null)
+            if (_progress == null)
             {
-                p.PlayStart(_npc.startDialogue, _npc.startAudio);
+                _progress = new ProgressDto
+                {
+                    npcId = _npc.id,
+                    npcName = "",
+                    isActive = true,
+                    completedAt = null
+                };
+            }
+            else
+            {
+                _progress.isActive = true;
+                _progress.completedAt = null;
+            }
+
+            if (_panel != null)
+            {
+                _panel.SetStatus("Квест начат: " + _npc.name);
+            }
+
+            var player = FindFirstObjectByType<NpcAudioPlayer>(FindObjectsInactive.Include);
+            if (player != null)
+            {
+                player.PlayStart(res.Data.startDialogue, res.Data.startAudio);
             }
         }
         else
         {
-            _panel.SetStatus("Ошибка: " + res.Error);
-            FailAttempts.Increment();
+            if (_panel != null)
+            {
+                _panel.SetStatus("Ошибка: " + res.Error);
+            }
         }
 
         UpdateState();
@@ -60,19 +80,36 @@ public class NpcCardView : MonoBehaviour
     {
         SetButtons(false);
 
-        ApiResult<ProgressDto> res = await _progressApi.CompleteQuestAsync(_npc.id);
-        if (res.IsSuccess == true)
+        var res = await _progressApi.CompleteQuestAsync(_npc.id);
+        if (res.IsSuccess == true && res.Data != null)
         {
-            _progress = res.Data;
-            _panel.SetStatus("Квест завершён: " + _npc.name);
-
-            var p = FindObjectOfType<NpcAudioPlayer>();
-            if (p != null)
+            if (_progress == null)
             {
-                p.PlayComplete(_npc.completeDialogue, _npc.completeAudio);
+                _progress = new ProgressDto { npcId = _npc.id, npcName = "" };
             }
 
-            AchievementsNotifier notifier = FindObjectOfType<AchievementsNotifier>();
+            _progress.isActive = false;
+            if (string.IsNullOrEmpty(res.Data.completedAt) == true)
+            {
+                _progress.completedAt = "done";
+            }
+            else
+            {
+                _progress.completedAt = res.Data.completedAt;
+            }
+
+            if (_panel != null)
+            {
+                _panel.SetStatus("Квест завершён: " + _npc.name);
+            }
+
+            var player = FindFirstObjectByType<NpcAudioPlayer>(FindObjectsInactive.Include);
+            if (player != null)
+            {
+                player.PlayComplete(res.Data.completeDialogue, res.Data.completeAudio);
+            }
+
+            var notifier = FindFirstObjectByType<AchievementsNotifier>(FindObjectsInactive.Include);
             if (notifier != null)
             {
                 await notifier.CheckAndNotifyAsync();
@@ -80,16 +117,16 @@ public class NpcCardView : MonoBehaviour
         }
         else
         {
-            _panel.SetStatus("Ошибка: " + res.Error);
-            FailAttempts.Increment();
+            if (_panel != null)
+            {
+                _panel.SetStatus("Ошибка: " + res.Error);
+            }
         }
 
         UpdateState();
         SetButtons(true);
     }
 
-
-    
     private void UpdateState()
     {
         bool completed = false;
@@ -104,14 +141,7 @@ public class NpcCardView : MonoBehaviour
 
         if (_doneBadge != null)
         {
-            if (completed == true)
-            {
-                _doneBadge.SetActive(true);
-            }
-            else
-            {
-                _doneBadge.SetActive(false);
-            }
+            _doneBadge.SetActive(completed);
         }
     }
 
@@ -121,7 +151,6 @@ public class NpcCardView : MonoBehaviour
         {
             _startButton.interactable = interactable;
         }
-
         if (_completeButton != null)
         {
             _completeButton.interactable = interactable;

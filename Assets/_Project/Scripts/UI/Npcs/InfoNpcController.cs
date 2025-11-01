@@ -16,18 +16,24 @@ public sealed class InfoNpcController : MonoBehaviour
             _label.gameObject.SetActive(true);
         }
 
-        if (_audioSource != null)
+        if (_audioSource == null)
         {
-            if (string.IsNullOrEmpty(_audioRelativePath) == false)
-            {
-                AudioClip clip = await StreamingAudioLoader.LoadClipAsync(_audioRelativePath);
-                if (clip != null)
-                {
-                    _audioSource.Stop();
-                    _audioSource.clip = clip;
-                    _audioSource.Play();
-                }
-            }
+            return;
         }
+
+        if (string.IsNullOrEmpty(_audioRelativePath) == true)
+        {
+            return;
+        }
+
+        var clip = await StreamingAudioLoader.LoadAsync(_audioRelativePath);
+        if (clip == null)
+        {
+            return;
+        }
+
+        _audioSource.Stop();
+        _audioSource.clip = clip;
+        _audioSource.Play();
     }
 }

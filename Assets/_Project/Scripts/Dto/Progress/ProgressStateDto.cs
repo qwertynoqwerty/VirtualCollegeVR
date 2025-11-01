@@ -1,12 +1,12 @@
-﻿using System;
+﻿    using System;
 
-namespace VRCollege.Net.Dto
-{
-    [Serializable]
-    public sealed class ProgressStateDto
+    namespace VRCollege.Net.Dto
     {
-        public int npcId;
-        public string state;
-        public string completedAt;
+        [Serializable]
+        public sealed class ProgressStateDto
+        {
+            public int npcId;
+            public string state;
+            public string completedAt;
+        }
     }
-}

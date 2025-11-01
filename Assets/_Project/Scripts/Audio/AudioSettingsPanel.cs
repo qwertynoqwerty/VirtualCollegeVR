@@ -1,57 +1,88 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public sealed class AudioSettingsPanel : MonoBehaviour
 {
-    [SerializeField] private AudioSource _music;
+    private const string MusicKey = "music_volume";
+    private const string SfxKey   = "sfx_volume";
+
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _sfxSlider;
+    [SerializeField] private AudioSource _musicSource;
+    [SerializeField] private AudioSource _sfxPreviewSource;
+    [SerializeField] private AudioClip _sfxTestClip;
 
-    private const string _kMusic = "vrcollege.vol.music";
-    private const string _kSfx   = "vrcollege.vol.sfx";
+    public static event Action<float, float> OnVolumesApplied;
 
-    private void Start()
+    private bool _bound;
+
+    private void Awake()
     {
-        float music = PlayerPrefs.GetFloat(_kMusic, 0.7f);
-        float sfx   = PlayerPrefs.GetFloat(_kSfx, 0.8f);
+        float music = PlayerPrefs.GetFloat(MusicKey, 0.6f);
+        float sfx   = PlayerPrefs.GetFloat(SfxKey,   0.6f);
 
-        if (_musicSlider != null)
-        {
-            _musicSlider.value = music;
-            _musicSlider.onValueChanged.AddListener(OnMusicChanged);
-        }
-        if (_sfxSlider != null)
-        {
-            _sfxSlider.value = sfx;
-            _sfxSlider.onValueChanged.AddListener(OnSfxChanged);
-        }
+        if (_musicSlider) _musicSlider.SetValueWithoutNotify(Mathf.Clamp01(music));
+        if (_sfxSlider)   _sfxSlider.SetValueWithoutNotify(Mathf.Clamp01(sfx));
 
-        ApplyVolumes(music, sfx);
+        ApplyVolumes();
     }
 
-    private void OnDestroy()
+
+    private void OnEnable()
     {
+        if (_bound) return;
+        if (_musicSlider) _musicSlider.onValueChanged.AddListener(OnMusicChanged);
+        if (_sfxSlider)   _sfxSlider.onValueChanged.AddListener(OnSfxChanged);
+        _bound = true;
+    }
+    
+    private void OnDisable()
+    {
+        if (_bound == false) return;
+
         if (_musicSlider != null) _musicSlider.onValueChanged.RemoveListener(OnMusicChanged);
-        if (_sfxSlider != null)   _sfxSlider.onValueChanged.RemoveListener(OnSfxChanged);
+        if (_sfxSlider   != null) _sfxSlider.onValueChanged.RemoveListener(OnSfxChanged);
+
+        _bound = false;
+    }
+
+    private static float Clamp01(float v)
+    {
+        if (v < 0f) return 0f;
+        if (v > 1f) return 1f;
+        return v;
     }
 
     private void OnMusicChanged(float v)
     {
-        PlayerPrefs.SetFloat(_kMusic, v);
+        float value = Clamp01(v);
+        PlayerPrefs.SetFloat(MusicKey, value);
         PlayerPrefs.Save();
-        ApplyVolumes(v, PlayerPrefs.GetFloat(_kSfx, 0.8f));
+        ApplyVolumes();
     }
+
 
     private void OnSfxChanged(float v)
     {
-        PlayerPrefs.SetFloat(_kSfx, v);
+        float value = Clamp01(v);
+        PlayerPrefs.SetFloat(SfxKey, value);
         PlayerPrefs.Save();
-        ApplyVolumes(PlayerPrefs.GetFloat(_kMusic, 0.7f), v);
+        ApplyVolumes();
+
+        if (_sfxPreviewSource != null && _sfxTestClip != null)
+            _sfxPreviewSource.PlayOneShot(_sfxTestClip);
     }
 
-    private void ApplyVolumes(float music, float sfx)
+    private void ApplyVolumes()
     {
-        if (_music != null) _music.volume = Mathf.Clamp01(music);
-        AudioListener.volume = Mathf.Clamp01(sfx);
+        float music = Mathf.Clamp01(PlayerPrefs.GetFloat(MusicKey, 0.6f));
+        float sfx   = Mathf.Clamp01(PlayerPrefs.GetFloat(SfxKey,   0.6f));
+
+        if (_musicSource)       _musicSource.volume = music;
+        if (_sfxPreviewSource)  _sfxPreviewSource.volume = sfx;
+
+        OnVolumesApplied?.Invoke(music, sfx);
     }
+
 }

@@ -26,7 +26,7 @@ public sealed class AchievementsNotifier : MonoBehaviour
     {
         if (_profileApi == null)
         {
-            _profileApi = FindObjectOfType<ProfileApi>(true);
+            _profileApi = FindFirstObjectByType<ProfileApi>(FindObjectsInactive.Include);
         }
     }
 

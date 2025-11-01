@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using VRCollege.Net.Dto;
 
 public sealed class ProgressApi : MonoBehaviour
 {
@@ -9,99 +10,56 @@ public sealed class ProgressApi : MonoBehaviour
 
     public async Task<ApiResult<List<ProgressDto>>> GetMineAsync(List<int> npcIds, CancellationToken ct = default)
     {
-        List<ProgressDto> result = new List<ProgressDto>();
-
+        var result = new List<ProgressDto>();
         if (npcIds == null || npcIds.Count == 0)
-        {
             return ApiResult<List<ProgressDto>>.Success(result);
-        }
 
-        int i = 0;
-        while (i < npcIds.Count)
+        var statesRes = await _client.GetAsync<string>("/api/progress/states", ct);
+        if (!statesRes.IsSuccess)
+            return ApiResult<List<ProgressDto>>.Fail(statesRes.StatusCode, statesRes.Error);
+
+        var all = JsonArrays.FromJson<ProgressStateDto>(statesRes.Data);
+
+        var byId = new Dictionary<int, ProgressStateDto>(all.Length);
+        for (int i = 0; i < all.Length; i++)
+            byId[all[i].npcId] = all[i];
+
+        for (int i = 0; i < npcIds.Count; i++)
         {
             int id = npcIds[i];
-            string path = "/api/progress/status?npcId=" + id;
-
-            ApiResult<string> res = await _client.GetAsync<string>(path, ct);
-            if (res.IsSuccess == true && string.IsNullOrEmpty(res.Data) == false)
+            if (byId.TryGetValue(id, out var s))
             {
-                ProgressStatus tmp = JsonUtility.FromJson<ProgressStatus>(res.Data);
-                ProgressDto dto = new ProgressDto();
-                dto.npcId = id;
-                dto.npcName = "";
-                if (tmp != null)
+                var dto = new ProgressDto
                 {
-                    if (tmp.state == "in_progress")
-                    {
-                        dto.isActive = true;
-                        dto.completedAt = null;
-                    }
-                    else if (tmp.state == "completed")
-                    {
-                        dto.isActive = false;
-                        dto.completedAt = "";
-                    }
-                    else
-                    {
-                        dto.isActive = false;
-                        dto.completedAt = null;
-                    }
-                }
+                    npcId = id,
+                    npcName = "",
+                    isActive = s.state == "in_progress",
+                    completedAt = s.state == "completed" ? (string.IsNullOrEmpty(s.completedAt) ? "done" : s.completedAt) : null
+                };
                 result.Add(dto);
             }
-            i = i + 1;
+            else
+            {
+                result.Add(new ProgressDto { npcId = id, npcName = "", isActive = false, completedAt = null });
+            }
         }
 
         return ApiResult<List<ProgressDto>>.Success(result);
     }
 
-    public async Task<ApiResult<ProgressDto>> StartQuestAsync(int npcId, CancellationToken ct = default)
+    public async Task<ApiResult<ProgressStartResponse>> StartQuestAsync(int npcId, CancellationToken ct = default)
     {
-        ProgressStartDto dto = new ProgressStartDto();
-        dto.npcId = npcId;
+        var dto = new ProgressStartDto { npcId = npcId };
 
-        ApiResult<string> res =
-            await _client.PostJsonAsync<ProgressStartDto, string>("/api/progress/start", dto, ct);
-
-        if (res.IsSuccess == false)
-        {
-            return ApiResult<ProgressDto>.Fail(res.StatusCode, res.Error);
-        }
-
-        ProgressDto ui = new ProgressDto();
-        ui.npcId = npcId;
-        ui.isActive = true;
-        ui.completedAt = null;
-        ui.npcName = "";
-        return ApiResult<ProgressDto>.Success(ui);
+        var res = await _client.PostJsonAsync<ProgressStartDto, ProgressStartResponse>("/api/progress/start", dto, ct);
+        return res;
     }
 
-    public async Task<ApiResult<ProgressDto>> CompleteQuestAsync(int npcId, CancellationToken ct = default)
+    public async Task<ApiResult<ProgressCompleteResponse>> CompleteQuestAsync(int npcId, CancellationToken ct = default)
     {
-        ProgressCompleteDto body = new ProgressCompleteDto();
-        body.npcId = npcId;
+        var body = new ProgressCompleteDto { npcId = npcId };
 
-        ApiResult<string> res =
-            await _client.PostJsonAsync<ProgressCompleteDto, string>("/api/progress/complete", body, ct);
-
-        if (res.IsSuccess == false)
-        {
-            return ApiResult<ProgressDto>.Fail(res.StatusCode, res.Error);
-        }
-
-        ProgressDto ui = new ProgressDto();
-        ui.npcId = npcId;
-        ui.isActive = false;
-
-        ui.completedAt = ""; 
-        ui.npcName = "";
-        return ApiResult<ProgressDto>.Success(ui);
-    }
-
-    [System.Serializable]
-    private class ProgressStatus
-    {
-        public int npcId;
-        public string state;
+        var res = await _client.PostJsonAsync<ProgressCompleteDto, ProgressCompleteResponse>("/api/progress/complete", body, ct);
+        return res;
     }
 }

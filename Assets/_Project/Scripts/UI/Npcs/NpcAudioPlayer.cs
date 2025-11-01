@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 public sealed class NpcAudioPlayer : MonoBehaviour
@@ -8,28 +9,15 @@ public sealed class NpcAudioPlayer : MonoBehaviour
 
     public async void PlayStart(string dialogueText, string audioRelativePath)
     {
-        if (_dialogueLabel != null)
-        {
-            _dialogueLabel.text = dialogueText;
-            _dialogueLabel.gameObject.SetActive(true);
-        }
-
-        if (_audioSource != null)
-        {
-            if (string.IsNullOrEmpty(audioRelativePath) == false)
-            {
-                AudioClip clip = await StreamingAudioLoader.LoadClipAsync(audioRelativePath);
-                if (clip != null)
-                {
-                    _audioSource.Stop();
-                    _audioSource.clip = clip;
-                    _audioSource.Play();
-                }
-            }
-        }
+        await PlayInternal(dialogueText, audioRelativePath);
     }
 
     public async void PlayComplete(string dialogueText, string audioRelativePath)
+    {
+        await PlayInternal(dialogueText, audioRelativePath);
+    }
+
+    private async Task PlayInternal(string dialogueText, string audioRelativePath)
     {
         if (_dialogueLabel != null)
         {
@@ -37,18 +25,24 @@ public sealed class NpcAudioPlayer : MonoBehaviour
             _dialogueLabel.gameObject.SetActive(true);
         }
 
-        if (_audioSource != null)
+        if (_audioSource == null)
         {
-            if (string.IsNullOrEmpty(audioRelativePath) == false)
-            {
-                AudioClip clip = await StreamingAudioLoader.LoadClipAsync(audioRelativePath);
-                if (clip != null)
-                {
-                    _audioSource.Stop();
-                    _audioSource.clip = clip;
-                    _audioSource.Play();
-                }
-            }
+            return;
         }
+
+        if (string.IsNullOrEmpty(audioRelativePath) == true)
+        {
+            return;
+        }
+
+        var clip = await StreamingAudioLoader.LoadAsync(audioRelativePath);
+        if (clip == null)
+        {
+            return;
+        }
+
+        _audioSource.Stop();
+        _audioSource.clip = clip;
+        _audioSource.Play();
     }
 }

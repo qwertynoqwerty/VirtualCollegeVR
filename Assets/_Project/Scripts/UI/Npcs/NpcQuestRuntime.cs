@@ -36,29 +36,22 @@ public class NpcQuestRuntime : MonoBehaviour
 
     private async void HandleInteract()
     {
-        if (_isProcessing == true)
-        {
-            return;
-        }
-
+        if (_isProcessing) return;
         _isProcessing = true;
 
         await _progressApi.StartQuestAsync(_npcId);
 
         Show(_startDialogue);
         Play(_startClip);
-        int startMs = Mathf.RoundToInt(_dialogueSeconds * 1000f);
-        await Task.Delay(startMs);
+        await Task.Delay(Mathf.RoundToInt(_dialogueSeconds * 1000f));
 
         await _progressApi.CompleteQuestAsync(_npcId);
 
         Show(_completeDialogue);
         Play(_completeClip);
-        int endMs = Mathf.RoundToInt(_dialogueSeconds * 1000f);
-        await Task.Delay(endMs);
+        await Task.Delay(Mathf.RoundToInt(_dialogueSeconds * 1000f));
 
-        int debMs = Mathf.RoundToInt(_debounceSeconds * 1000f);
-        await Task.Delay(debMs);
+        await Task.Delay(Mathf.RoundToInt(_debounceSeconds * 1000f));
 
         _interactable.ReleaseBusy();
         _isProcessing = false;

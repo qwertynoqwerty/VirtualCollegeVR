@@ -17,7 +17,6 @@ public sealed class AuthController : MonoBehaviour
     [SerializeField] private TMP_InputField _loginInputReg;
     [SerializeField] private TMP_InputField _passwordInputReg;
     [SerializeField] private TMP_InputField _nameInputReg;
-    [SerializeField] private TMP_Dropdown _specialtyDropdownReg;
     [SerializeField] private TMP_Text _errorTextReg;
     [SerializeField] private GameObject _registrationPanel;
 
@@ -233,21 +232,18 @@ public sealed class AuthController : MonoBehaviour
         {
             if (res.Data != null)
             {
-                if (string.IsNullOrEmpty(res.Data.token) == false)
-                {
+                if (!string.IsNullOrEmpty(res.Data.token))
                     JwtStorage.Save(res.Data.token);
-                }
-            }
 
-            UserSession.SaveSpecialtyId(res.Data.specialtyId);
-            UserSession.SaveIsFirstLogin(res.Data.isFirstLogin);
+                UserSession.SaveSpecialtyId(res.Data.specialtyId);   // <- внутрь проверки
+                UserSession.SaveIsFirstLogin(res.Data.isFirstLogin);
+            }
 
             SetAuthStatus("¬ход успешен.");
-            if (string.IsNullOrEmpty(_sceneAfterLogin) == false)
-            {
+            if (!string.IsNullOrEmpty(_sceneAfterLogin))
                 SceneManager.LoadScene(_sceneAfterLogin);
-            }
         }
+
         else
         {
             string msg = "ќшибка входа.";
