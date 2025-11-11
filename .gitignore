@@ -1,124 +1,67 @@
-# ===================================================
-# Unity.gitignore — updated template (2025)
-# Original: https://github.com/github/gitignore/blob/master/Unity.gitignore
-# ===================================================
+# =========================================================
+# UNITY + RIDER + WINDOWS .gitignore
+# =========================================================
 
-# ------------------------------
-# Unity system folders
-# ------------------------------
-/[Ll]ibrary/            # Cache and build data
-/[Tt]emp/               # Temporary files
-/[Oo]bj/                # Intermediate build files
-/[Bb]uild/              # Output builds
-/[Bb]uilds/             # Additional builds
-/[Ll]ogs/               # Editor logs
-/[Uu]ser[Ss]ettings/    # Local user settings (layouts, shader cache, etc.)
+# ========== Unity generated ==========
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+sysinfo.txt
 
-# ------------------------------
-# Memory Captures
-# ------------------------------
-/[Mm]emoryCaptures/     # Can be large and may contain sensitive data
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+!/[Aa]ssets/**/*.meta
 
-# ------------------------------
-# Asset metadata
-# ------------------------------
-!/[Aa]ssets/**/*.meta   # Keep .meta files unless the asset itself is ignored
-
-# ------------------------------
-# Plugins and auto-generated scripts
-# ------------------------------
-/[Aa]ssets/Plugins/Editor/JetBrains*  # JetBrains Rider plugin
-
-# ------------------------------
-# IDE cache and configuration
-# ------------------------------
-.vs/                    # Visual Studio
-.vscode/                # Visual Studio Code
-.gradle/                # Gradle (Android)
-.vsconfig               # Visual Studio configuration file
-
-# ------------------------------
-# Auto-generated project files
-# ------------------------------
-ExportedObj/
-.consulo/
-*.csproj
-*.unityproj
-*.sln
+# ========== Visual Studio / VSCode ==========
+.vs/
+.vscode/
 *.suo
-*.tmp
 *.user
 *.userprefs
+*.csproj
 *.pidb
-*.booproj
+*.unityproj
+*.sln
 *.svd
-*.pdb
-*.mdb
-*.opendb
-*.VC.db
 
-# ------------------------------
-# Unity debug and metadata files
-# ------------------------------
-*.pidb.meta
-*.pdb.meta
-*.mdb.meta
-sysinfo.txt             # Unity crash report
+# ========== JetBrains Rider ==========
+.idea/
+*.sln.iml
 
-# ------------------------------
-# Build outputs and packages
-# ------------------------------
-*.apk                   # Android build
-*.aab                   # Android App Bundle
-*.unitypackage          # Exported Unity packages
-
-# ------------------------------
-# Crashlytics files
-# ------------------------------
-crashlytics-build.properties
-
-# ------------------------------
-# Packed Addressables
-# ------------------------------
-/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
-
-# ------------------------------
-# Temporary Android assets
-# ------------------------------
-/[Aa]ssets/[Ss]treamingAssets/aa.meta
-/[Aa]ssets/[Ss]treamingAssets/aa/*
-
-# ------------------------------
-# VR SDKs and plugins (excluded from repository)
-# ------------------------------
-/[Aa]ssets/Oculus/
-/[Aa]ssets/UltimateXR/
-/[Aa]ssets/XR/
-/[Aa]ssets/XRI/
-/[Aa]ssets/OpenXR/
-/[Aa]ssets/SteamVR/
-/[Aa]ssets/PicoXR/
-/[Aa]ssets/Vive/
-/[Aa]ssets/**/Samples~/
-/[Aa]ssets/**/Tests~/
-
-# ------------------------------
-# Local environment files
-# ------------------------------
-.env
-.env.local
-
-# ------------------------------
-# OS-generated files
-# ------------------------------
+# ========== OS generated ==========
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# ------------------------------
-# Plastic SCM (Unity Version Control)
-# ------------------------------
-[Pp]lasticSCM/
+# ========== Crash Reports / Logs ==========
+sysinfo.txt
 
-# ===================================================
+# ========== Unity Cache / Artifacts ==========
+[Aa]ssets/AssetStoreTools*
+[Bb]uild/
+[Bb]uilds/
+[Pp]rojectSettings/EditorBuildSettings.asset.bak
+
+# ========== Ignore old build data / backups ==========
+[Tt]emp/
+[Bb]uild/
+[Bb]uilds/
+[Oo]bj/
+*.bak
+*.tmp
+*.old
+*.swp
+
+# ========== Rider / JetBrains project settings ==========
+.idea/
+*.iml
+out/
+
+# =========================================================
 # End of file
-# ===================================================
+# =========================================================

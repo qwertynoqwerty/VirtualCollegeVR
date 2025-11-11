@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/GuestScene.unity
     guid: c65b328a724659441886f3efc07ad21c
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 31ac8fe6bc50bb243a850ea9ea8edae0,
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d256f8e2979071341ba26e1caebe6326,
       type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 6662b2a2e52c79149891ff7d3c8469ed,
       type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2424a244f8c30504a9d2aa15cf6b8c99,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c90c31a5c052d834093237709a554692,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b0b85c6065deb5847a49230b28909a23,
       type: 2}
