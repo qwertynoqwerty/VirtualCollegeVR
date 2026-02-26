@@ -1,3 +1,6 @@
+using UltimateXR.Avatar;
+using UltimateXR.Core;
+using UltimateXR.Devices;
 using UnityEngine;
 
 public sealed class PanelsUIController : MonoBehaviour
@@ -11,27 +14,15 @@ public sealed class PanelsUIController : MonoBehaviour
     [SerializeField] private QuestJournalPanelController _questsController;
     [SerializeField] private ProfilePanelController _profileController;
 
-    [Header("Input")]
-    [SerializeField] private bool _toggleByKeyboard = true;
-    [SerializeField] private KeyCode _toggleKey = KeyCode.E;
-
-    private void Start()
-    {
-        ShowProfile();
-    }
-
     private void Update()
     {
-        if (_toggleByKeyboard == true)
+        if (UxrAvatar.LocalAvatarInput.GetButtonsPressDown(UxrHandSide.Right, UxrInputButtons.Button1))
         {
-            if (Input.GetKeyDown(_toggleKey) == true)
-            {
-                ToggleHud();
-            }
+            ToggleHud();
         }
     }
 
-    public void ToggleHud()
+    private void ToggleHud()
     {
         if (IsAnyOpen() == true)
         {
@@ -43,7 +34,7 @@ public sealed class PanelsUIController : MonoBehaviour
         }
     }
 
-    public void ShowProfile()
+    private void ShowProfile()
     {
         SetActive(_profilePanel, true);
         SetActive(_questsPanel, false);
@@ -55,7 +46,7 @@ public sealed class PanelsUIController : MonoBehaviour
         }
     }
 
-    public void ShowQuests()
+    private void ShowQuests()
     {
         SetActive(_profilePanel, false);
         SetActive(_achievementsPanel, false);
@@ -67,14 +58,14 @@ public sealed class PanelsUIController : MonoBehaviour
         }
     }
 
-    public void ShowAchievements()
+    private void ShowAchievements()
     {
         SetActive(_profilePanel, false);
         SetActive(_questsPanel, false);
         SetActive(_achievementsPanel, true);
     }
 
-    public void HideAll()
+    private void HideAll()
     {
         SetActive(_profilePanel, false);
         SetActive(_questsPanel, false);
