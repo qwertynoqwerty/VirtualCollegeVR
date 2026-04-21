@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 public sealed class LocationGate : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _zones;
+    [FormerlySerializedAs("_zones")]
+    [SerializeField] private GameObject[] _zoneBlockers;
     [SerializeField] private bool _autoApplyOnStart = true;
 
     private void Start()
@@ -17,33 +19,27 @@ public sealed class LocationGate : MonoBehaviour
 
     public void Apply(int specialtyId, bool isGuest)
     {
-        if (_zones == null)
+        if (_zoneBlockers == null)
         {
             return;
         }
 
-        for (int i = 0; i < _zones.Length; i++)
+        for (int i = 0; i < _zoneBlockers.Length; i++)
         {
-            GameObject z = _zones[i];
-            if (z == null)
+            GameObject blocker = _zoneBlockers[i];
+            if (blocker == null)
             {
                 continue;
             }
 
             if (isGuest == true)
             {
-                z.SetActive(true);
+                blocker.SetActive(true);
             }
             else
             {
-                if ((i + 1) == specialtyId)
-                {
-                    z.SetActive(true);
-                }
-                else
-                {
-                    z.SetActive(false);
-                }
+                bool isCurrentSpecialty = specialtyId > 0 && (i + 1) == specialtyId;
+                blocker.SetActive(isCurrentSpecialty == false);
             }
         }
     }

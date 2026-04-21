@@ -19,34 +19,6 @@ public sealed class ApiClient : MonoBehaviour
         }
     }
 
-    public async Task<ApiResult<T>> GetJsonAsync<T>(string path, CancellationToken ct = default)
-    {
-        using (UnityWebRequest req = UnityWebRequest.Get(BuildUrl(path)))
-        {
-            AttachAuth(req);
-            req.downloadHandler = new DownloadHandlerBuffer();
-
-            if (_timeoutSeconds > 0)
-            {
-                req.timeout = _timeoutSeconds;
-            }
-
-            UnityWebRequestAsyncOperation op = req.SendWebRequest();
-            while (op.isDone == false)
-            {
-                if (ct.IsCancellationRequested)
-                {
-                    req.Abort();
-                    return ApiResult<T>.Canceled();
-                }
-
-                await Task.Yield();
-            }
-
-            return HandleResponse<T>(req);
-        }
-    }
-
     public async Task<ApiResult<T>> GetAsync<T>(string path, CancellationToken ct = default)
     {
         using (UnityWebRequest req = UnityWebRequest.Get(BuildUrl(path)))
@@ -226,12 +198,6 @@ public sealed class ApiClient : MonoBehaviour
             return ApiResult<T>.Fail(code, err);
         }
     }
-}
-
-[Serializable]
-public sealed class ApiError
-{
-    public string message;
 }
 
 public struct ApiResult<T>

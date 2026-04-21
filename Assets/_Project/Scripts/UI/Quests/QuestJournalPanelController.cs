@@ -8,6 +8,7 @@ using VRCollege.Net.Dto;
 public sealed class QuestJournalPanelController : MonoBehaviour
 {
     private ProgressStatesApi _statesApi;
+    private NpcsApi _npcsApi;
 
     [Header("UI")]
     [SerializeField] private TMP_Text _emptyStateText;
@@ -20,6 +21,8 @@ public sealed class QuestJournalPanelController : MonoBehaviour
     {
         if (_statesApi == null)
             _statesApi = FindFirstObjectByType<ProgressStatesApi>(FindObjectsInactive.Include);
+        if (_npcsApi == null)
+            _npcsApi = FindFirstObjectByType<NpcsApi>(FindObjectsInactive.Include);
     }
 
     private void OnEnable()
@@ -44,9 +47,11 @@ public sealed class QuestJournalPanelController : MonoBehaviour
         for (int i = 0; i < res.Data.Length; i++)
         {
             var s = res.Data[i];
-            if (s.state == "in_progress" || s.state == "completed")
+            if (s.status != ProgressStateDto.NotStarted)
                 list.Add(s);
         }
+
+        await AttachNpcNamesAsync(list);
 
         if (list.Count == 0)
         {
@@ -69,6 +74,36 @@ public sealed class QuestJournalPanelController : MonoBehaviour
         }
 
         _isLoading = false;
+    }
+
+    private async Task AttachNpcNamesAsync(List<ProgressStateDto> list)
+    {
+        if (_npcsApi == null || list == null || list.Count == 0)
+        {
+            return;
+        }
+
+        var npcsRes = await _npcsApi.GetBySpecialtyAsync();
+        if (!npcsRes.IsSuccess || npcsRes.Data == null)
+        {
+            return;
+        }
+
+        var names = new Dictionary<int, string>(npcsRes.Data.Count);
+        for (int i = 0; i < npcsRes.Data.Count; i++)
+        {
+            var n = npcsRes.Data[i];
+            names[n.id] = n.role;
+        }
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            var s = list[i];
+            if (string.IsNullOrEmpty(s.npcName) && names.TryGetValue(s.npcId, out var name))
+            {
+                s.npcName = name;
+            }
+        }
     }
 
     private void RenderEmpty()

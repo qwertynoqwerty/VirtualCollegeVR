@@ -12,7 +12,7 @@ public sealed class PanelsUIController : MonoBehaviour
 
     [Header("Controllers (optional)")]
     [SerializeField] private QuestJournalPanelController _questsController;
-    [SerializeField] private ProfilePanelController _profileController;
+    [SerializeField] private AchievementsPanelController _achievementsController;
 
     private void Update()
     {
@@ -34,19 +34,19 @@ public sealed class PanelsUIController : MonoBehaviour
         }
     }
 
-    private void ShowProfile()
+    public void ShowProfile()
     {
         SetActive(_profilePanel, true);
         SetActive(_questsPanel, false);
         SetActive(_achievementsPanel, false);
 
-        if (_profileController != null)
+        if (_achievementsController != null)
         {
-            _ = _profileController.Refresh();
+            _ = _achievementsController.Refresh();
         }
     }
 
-    private void ShowQuests()
+    public void ShowQuests()
     {
         SetActive(_profilePanel, false);
         SetActive(_achievementsPanel, false);
@@ -58,18 +58,23 @@ public sealed class PanelsUIController : MonoBehaviour
         }
     }
 
-    private void ShowAchievements()
+    public void ShowAchievements()
     {
         SetActive(_profilePanel, false);
         SetActive(_questsPanel, false);
         SetActive(_achievementsPanel, true);
     }
 
-    private void HideAll()
+    public void HideAll()
     {
         SetActive(_profilePanel, false);
         SetActive(_questsPanel, false);
         SetActive(_achievementsPanel, false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     private bool IsAnyOpen()

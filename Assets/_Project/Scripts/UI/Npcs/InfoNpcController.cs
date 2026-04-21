@@ -1,39 +1,54 @@
-﻿using TMPro;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public sealed class InfoNpcController : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _label;
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private string _text;
-    [SerializeField] private string _audioRelativePath;
+    [SerializeField] private Interactable _interactable;
+    [SerializeField] private DialoguePlayer _dialoguePlayer;
+    [SerializeField] private InfoNpcDialogueDatabase _dialogueDatabase;
+    [SerializeField] private int _infoId;
+    [SerializeField] private float _debounceSeconds = 0.4f;
+
+    private bool _isPlaying;
+
+    private void Awake()
+    {
+        if (_interactable != null)
+        {
+            _interactable.OnInteract += Play;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_interactable != null)
+        {
+            _interactable.OnInteract -= Play;
+        }
+    }
 
     public async void Play()
     {
-        if (_label != null)
-        {
-            _label.text = _text;
-            _label.gameObject.SetActive(true);
-        }
-
-        if (_audioSource == null)
+        if (_isPlaying)
         {
             return;
         }
 
-        if (string.IsNullOrEmpty(_audioRelativePath) == true)
+        _isPlaying = true;
+
+        DialogueLine[] lines = _dialogueDatabase != null ? _dialogueDatabase.GetLines(_infoId) : null;
+        if (_dialoguePlayer != null && lines != null && lines.Length > 0)
         {
-            return;
+            await _dialoguePlayer.PlayLinesAsync(lines);
         }
 
-        var clip = await StreamingAudioLoader.LoadAsync(_audioRelativePath);
-        if (clip == null)
+        if (_interactable != null)
         {
-            return;
+            int debounceMs = Mathf.Max(1, Mathf.RoundToInt(_debounceSeconds * 1000f));
+            await Task.Delay(debounceMs);
+            _interactable.ReleaseBusy();
         }
 
-        _audioSource.Stop();
-        _audioSource.clip = clip;
-        _audioSource.Play();
+        _isPlaying = false;
     }
 }

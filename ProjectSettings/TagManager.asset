@@ -2,14 +2,8 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags:
-  - Book
-  - Fragment
-  - Tool
-  - Laptop
-  - Cube
-  - NPC
+  serializedVersion: 3
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -47,3 +41,5 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  m_RenderingLayers:
+  - Default

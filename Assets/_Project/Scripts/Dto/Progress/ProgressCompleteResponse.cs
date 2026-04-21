@@ -8,7 +8,4 @@ public sealed class ProgressCompleteResponse
     public bool isActive;
     public string completedAt;
     public AchievementDto[] newAchievements;
-
-    public string completeDialogue;
-    public string completeAudio;
 }

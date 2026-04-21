@@ -9,7 +9,7 @@ public sealed class AchievementsNotifier : MonoBehaviour
     private ProfileApi _profileApi;
 
     [Header("UI")]
-    [SerializeField] private AchievementToast _toast;
+    [SerializeField] private GlobalToast _toast;
 
     [Header("Behavior")]
     [SerializeField] private bool _autoCheckOnStart = true;
@@ -27,6 +27,11 @@ public sealed class AchievementsNotifier : MonoBehaviour
         if (_profileApi == null)
         {
             _profileApi = FindFirstObjectByType<ProfileApi>(FindObjectsInactive.Include);
+        }
+
+        if (_toast == null)
+        {
+            _toast = FindFirstObjectByType<GlobalToast>(FindObjectsInactive.Include);
         }
     }
 

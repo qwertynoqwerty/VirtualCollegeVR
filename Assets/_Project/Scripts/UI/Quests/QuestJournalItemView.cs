@@ -17,11 +17,18 @@ public sealed class QuestJournalItemView : MonoBehaviour
     {
         if (_titleText != null)
         {
-            _titleText.text = "NPC #" + dto.npcId;
+            if (string.IsNullOrEmpty(dto.npcName))
+            {
+                _titleText.text = "NPC #" + dto.npcId;
+            }
+            else
+            {
+                _titleText.text = dto.npcName;
+            }
         }
 
         bool isCompleted = false;
-        if (dto.state == "completed")
+        if (dto.status == ProgressStateDto.CompletedPendingDialogue || dto.status == ProgressStateDto.CompletedRepeat)
         {
             isCompleted = true;
         }

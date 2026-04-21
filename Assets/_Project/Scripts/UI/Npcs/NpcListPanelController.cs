@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using VRCollege.Net;
+using VRCollege.Net.Dto;
 
 public class NpcListPanelController : MonoBehaviour
 {
@@ -10,10 +12,23 @@ public class NpcListPanelController : MonoBehaviour
     [SerializeField] private TMP_Text _statusText;
 
     [SerializeField] private NpcsApi _npcsApi;
-    [SerializeField] private ProgressApi _progressApi;
+    [SerializeField] private ProgressStatesApi _progressStatesApi;
 
     private List<NpcDto> _npcs;
-    private Dictionary<int, ProgressDto> _progressByNpc;
+    private Dictionary<int, ProgressStateDto> _progressByNpc;
+
+    private void Awake()
+    {
+        if (_npcsApi == null)
+        {
+            _npcsApi = FindFirstObjectByType<NpcsApi>(FindObjectsInactive.Include);
+        }
+
+        if (_progressStatesApi == null)
+        {
+            _progressStatesApi = FindFirstObjectByType<ProgressStatesApi>(FindObjectsInactive.Include);
+        }
+    }
 
     private async void OnEnable()
     {
@@ -22,12 +37,12 @@ public class NpcListPanelController : MonoBehaviour
 
     public async Task RefreshList()
     {
-        SetStatus("Загрузка...");
+        SetStatus("Р—Р°РіСЂСѓР·РєР°...");
 
         ApiResult<List<NpcDto>> npcsRes = await _npcsApi.GetBySpecialtyAsync();
         if (npcsRes.IsSuccess == false)
         {
-            SetStatus("Ошибка загрузки NPC");
+            SetStatus("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё NPC");
             return;
         }
 
@@ -40,34 +55,17 @@ public class NpcListPanelController : MonoBehaviour
             _npcs = new List<NpcDto>();
         }
 
-        List<int> ids = new List<int>();
-        int k = 0;
-        while (k < _npcs.Count)
-        {
-            ids.Add(_npcs[k].id);
-            k = k + 1;
-        }
-
-        ApiResult<List<ProgressDto>> progRes = await _progressApi.GetMineAsync(ids);
+        ApiResult<ProgressStateDto[]> progRes = await _progressStatesApi.GetAllAsync();
         if (progRes.IsSuccess == false)
         {
-            SetStatus("Ошибка загрузки прогресса");
+            SetStatus("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РїСЂРѕРіСЂРµСЃСЃР°");
             return;
         }
 
-        List<ProgressDto> my;
-        if (progRes.Data != null)
-        {
-            my = progRes.Data;
-        }
-        else
-        {
-            my = new List<ProgressDto>();
-        }
-
-        _progressByNpc = new Dictionary<int, ProgressDto>();
+        ProgressStateDto[] my = progRes.Data ?? new ProgressStateDto[0];
+        _progressByNpc = new Dictionary<int, ProgressStateDto>();
         int i = 0;
-        while (i < my.Count)
+        while (i < my.Length)
         {
             _progressByNpc[my[i].npcId] = my[i];
             i = i + 1;
@@ -84,23 +82,24 @@ public class NpcListPanelController : MonoBehaviour
         {
             NpcCardView card = Instantiate(_npcCardPrefab, _content);
 
-            ProgressDto p;
+            ProgressStateDto p;
             bool has = _progressByNpc.TryGetValue(_npcs[i].id, out p);
             if (has == true)
             {
-                card.Bind(_npcs[i], p, _progressApi, this);
+                card.Bind(_npcs[i], p);
             }
             else
             {
-                ProgressDto empty = new ProgressDto();
+                ProgressStateDto empty = new ProgressStateDto();
                 empty.npcId = _npcs[i].id;
-                card.Bind(_npcs[i], empty, _progressApi, this);
+                empty.status = ProgressStateDto.NotStarted;
+                card.Bind(_npcs[i], empty);
             }
 
             i = i + 1;
         }
 
-        SetStatus("Готово");
+        SetStatus("Р“РѕС‚РѕРІРѕ");
     }
 
     public void SetStatus(string msg)

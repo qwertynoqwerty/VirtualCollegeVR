@@ -35,14 +35,6 @@ public sealed class AuthApi : MonoBehaviour
         ApiResult<AuthLoginResultDto> res =
             await _client.PostJsonAsync<AuthLoginDto, AuthLoginResultDto>("/api/auth/login", req, ct);
 
-        if (res.IsSuccess && res.Data != null)
-        {
-            if (string.IsNullOrEmpty(res.Data.token) == false)
-            {
-                JwtStorage.Save(res.Data.token);
-            }
-        }
-
         return res;
     }
 
@@ -50,11 +42,6 @@ public sealed class AuthApi : MonoBehaviour
     {
         ApiResult<AuthLogoutResultDto> res =
             await _client.PostJsonAsync<object, AuthLogoutResultDto>("/api/auth/logout", new object(), ct);
-
-        if (res.IsSuccess)
-        {
-            JwtStorage.Clear();
-        }
 
         return res;
     }

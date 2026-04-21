@@ -4,6 +4,7 @@ using System;
 public class NpcDto
 {
     public int id;
-    public string name;
+    public string role;
+    public string questCode;
     public int specialtyId;
 }

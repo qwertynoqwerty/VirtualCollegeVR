@@ -1,72 +1,300 @@
-﻿using System.Threading.Tasks;
-using TMPro;
+using System.Threading.Tasks;
 using UnityEngine;
+using VRCollege.Net;
+using VRCollege.Net.Dto;
 
 public class NpcQuestRuntime : MonoBehaviour
 {
     [Header("Bindings")]
     [SerializeField] private Interactable _interactable;
-    [SerializeField] private TMP_Text _dialogueLabel;
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private DialoguePlayer _dialoguePlayer;
     [SerializeField] private ProgressApi _progressApi;
+    [SerializeField] private ProgressStatesApi _progressStatesApi;
+    [SerializeField] private GlobalToast _toast;
+    [SerializeField] private QuestNpcDialogueDatabase _dialogueDatabase;
 
-    [Header("Content")]
+    [Header("NPC")]
     [SerializeField] private int _npcId;
-    [SerializeField] private string _startDialogue = "Привет! Возьми задание.";
-    [SerializeField] private string _completeDialogue = "Круто, выполнено!";
-    [SerializeField] private AudioClip _startClip;
-    [SerializeField] private AudioClip _completeClip;
 
     [Header("Flow")]
-    [SerializeField] private float _dialogueSeconds = 3.5f;
-    [SerializeField] private float _debounceSeconds = 0.6f;
+    [SerializeField] private float _debounceSeconds = 0.4f;
+    [SerializeField] private float _toastVisibleSeconds = 2.0f;
+    [SerializeField] private string _questTakenToast = "Р—Р°РґР°РЅРёРµ РїРѕР»СѓС‡РµРЅРѕ";
 
-    private bool _isProcessing;
+    private enum QuestState
+    {
+        Unknown = 0,
+        NotStarted = ProgressStateDto.NotStarted,
+        InProgress = ProgressStateDto.InProgress,
+        InProgressRepeat = ProgressStateDto.InProgressRepeat,
+        CompletedPendingDialogue = ProgressStateDto.CompletedPendingDialogue,
+        CompletedRepeat = ProgressStateDto.CompletedRepeat
+    }
+
+    private QuestState _state = QuestState.Unknown;
+    private bool _isBusy;
 
     private void Awake()
     {
-        _dialogueLabel.gameObject.SetActive(false);
-        _interactable.OnInteract += HandleInteract;
+        if (_toast == null)
+        {
+            _toast = FindFirstObjectByType<GlobalToast>(FindObjectsInactive.Include);
+        }
+
+        if (_progressStatesApi == null)
+        {
+            _progressStatesApi = FindFirstObjectByType<ProgressStatesApi>(FindObjectsInactive.Include);
+        }
+
+        if (_interactable != null)
+        {
+            _interactable.OnInteract += HandleInteract;
+            _interactable.SetPersistentVisible(true);
+        }
+    }
+
+    private async void Start()
+    {
+        await RefreshStateFromApiAsync();
+        ApplyInteractableVisualState();
     }
 
     private void OnDestroy()
     {
-        _interactable.OnInteract -= HandleInteract;
+        if (_interactable != null)
+        {
+            _interactable.OnInteract -= HandleInteract;
+        }
     }
 
     private async void HandleInteract()
     {
-        if (_isProcessing) return;
-        _isProcessing = true;
+        if (_isBusy)
+        {
+            return;
+        }
 
-        await _progressApi.StartQuestAsync(_npcId);
+        _isBusy = true;
+        await RefreshStateFromApiAsync();
 
-        Show(_startDialogue);
-        Play(_startClip);
-        await Task.Delay(Mathf.RoundToInt(_dialogueSeconds * 1000f));
+        if (_state == QuestState.NotStarted || _state == QuestState.CompletedPendingDialogue)
+        {
+            _interactable?.HideVisualNow();
+        }
 
-        await _progressApi.CompleteQuestAsync(_npcId);
+        if (_state == QuestState.NotStarted)
+        {
+            await StartQuestFlowAsync();
+        }
+        else if (_state == QuestState.InProgress)
+        {
+            bool ok = await AdvanceStateAsync(ProgressStateDto.InProgress);
+            if (ok)
+            {
+                await PlayDialogueAsync(_dialogueDatabase != null ? _dialogueDatabase.GetInProgressRepeatLines(_npcId) : null);
+                _state = QuestState.InProgressRepeat;
+                ApplyInteractableVisualState();
+            }
+        }
+        else if (_state == QuestState.InProgressRepeat)
+        {
+            await PlayDialogueAsync(_dialogueDatabase != null ? _dialogueDatabase.GetInProgressRepeatLines(_npcId) : null);
+        }
+        else if (_state == QuestState.CompletedPendingDialogue)
+        {
+            bool ok = await AdvanceStateAsync(ProgressStateDto.CompletedPendingDialogue);
+            if (ok)
+            {
+                await PlayDialogueAsync(_dialogueDatabase != null ? _dialogueDatabase.GetCompleteQuestLines(_npcId) : null);
+                _state = QuestState.CompletedRepeat;
+                ApplyInteractableVisualState();
+            }
+        }
+        else if (_state == QuestState.CompletedRepeat)
+        {
+            await PlayDialogueAsync(_dialogueDatabase != null ? _dialogueDatabase.GetCompletedRepeatLines(_npcId) : null);
+        }
 
-        Show(_completeDialogue);
-        Play(_completeClip);
-        await Task.Delay(Mathf.RoundToInt(_dialogueSeconds * 1000f));
-
-        await Task.Delay(Mathf.RoundToInt(_debounceSeconds * 1000f));
-
-        _interactable.ReleaseBusy();
-        _isProcessing = false;
+        await DebounceAndReleaseAsync();
+        _isBusy = false;
     }
 
-    private void Show(string text)
+    public async void MarkQuestCompleted()
     {
-        _dialogueLabel.text = text;
-        _dialogueLabel.gameObject.SetActive(true);
+        if (_isBusy)
+        {
+            return;
+        }
+
+        _isBusy = true;
+        await RefreshStateFromApiAsync();
+
+        if (_state != QuestState.InProgress && _state != QuestState.InProgressRepeat)
+        {
+            await DebounceAndReleaseAsync();
+            _isBusy = false;
+            return;
+        }
+
+        var complete = await _progressApi.CompleteQuestAsync(_npcId);
+        if (complete.IsSuccess == false || complete.Data == null)
+        {
+            Debug.LogWarning("[NpcQuestRuntime] CompleteQuestAsync failed for npcId=" + _npcId);
+            await DebounceAndReleaseAsync();
+            _isBusy = false;
+            return;
+        }
+
+        _state = QuestState.CompletedPendingDialogue;
+        ApplyInteractableVisualState();
+
+        var notifier = FindFirstObjectByType<AchievementsNotifier>(FindObjectsInactive.Include);
+        if (notifier != null)
+        {
+            await notifier.CheckAndNotifyAsync();
+        }
+
+        await DebounceAndReleaseAsync();
+        _isBusy = false;
     }
 
-    private void Play(AudioClip clip)
+    private async Task StartQuestFlowAsync()
     {
-        _audioSource.Stop();
-        _audioSource.clip = clip;
-        _audioSource.Play();
+        var start = await _progressApi.StartQuestAsync(_npcId);
+        if (start.IsSuccess == false || start.Data == null)
+        {
+            await RefreshStateFromApiAsync();
+            ApplyInteractableVisualState();
+            Debug.LogWarning("[NpcQuestRuntime] StartQuestAsync failed for npcId=" + _npcId);
+            return;
+        }
+
+        _state = QuestState.InProgress;
+        ApplyInteractableVisualState();
+        await PlayDialogueAsync(_dialogueDatabase != null ? _dialogueDatabase.GetStartQuestLines(_npcId) : null);
+
+        if (_toast != null && string.IsNullOrEmpty(_questTakenToast) == false)
+        {
+            _toast.Show(_questTakenToast, 0f, _toastVisibleSeconds);
+            int ms = Mathf.Max(1, Mathf.RoundToInt(_toastVisibleSeconds * 1000f));
+            await Task.Delay(ms);
+        }
+    }
+
+    private async Task RefreshStateFromApiAsync()
+    {
+        if (_progressStatesApi == null)
+        {
+            _state = QuestState.NotStarted;
+            return;
+        }
+
+        var res = await _progressStatesApi.GetStatesAsync();
+        if (res.IsSuccess == false || res.Data == null)
+        {
+            _state = QuestState.NotStarted;
+            return;
+        }
+
+        ProgressStateDto match = null;
+        for (int i = 0; i < res.Data.Length; i++)
+        {
+            if (res.Data[i].npcId == _npcId)
+            {
+                match = res.Data[i];
+                break;
+            }
+        }
+
+        if (match == null)
+        {
+            _state = QuestState.NotStarted;
+            return;
+        }
+
+        if (match.status == ProgressStateDto.NotStarted)
+        {
+            _state = QuestState.NotStarted;
+        }
+        else if (match.status == ProgressStateDto.InProgress)
+        {
+            _state = QuestState.InProgress;
+        }
+        else if (match.status == ProgressStateDto.InProgressRepeat)
+        {
+            _state = QuestState.InProgressRepeat;
+        }
+        else if (match.status == ProgressStateDto.CompletedPendingDialogue)
+        {
+            _state = QuestState.CompletedPendingDialogue;
+        }
+        else if (match.status == ProgressStateDto.CompletedRepeat)
+        {
+            _state = QuestState.CompletedRepeat;
+        }
+        else
+        {
+            _state = QuestState.NotStarted;
+        }
+    }
+
+    private async Task<bool> AdvanceStateAsync(int fromStatus)
+    {
+        if (_progressApi == null)
+        {
+            return false;
+        }
+
+        var res = await _progressApi.AdvanceQuestStateAsync(_npcId, fromStatus);
+        if (res.IsSuccess == false || res.Data == null)
+        {
+            Debug.LogWarning("[NpcQuestRuntime] AdvanceQuestStateAsync failed for npcId=" + _npcId + " fromStatus=" + fromStatus);
+            return false;
+        }
+
+        return true;
+    }
+
+    private async Task PlayDialogueAsync(DialogueLine[] lines)
+    {
+        if (_dialoguePlayer == null || lines == null || lines.Length == 0)
+        {
+            return;
+        }
+
+        await _dialoguePlayer.PlayLinesAsync(lines);
+    }
+
+    private async Task DebounceAndReleaseAsync()
+    {
+        int ms = Mathf.Max(1, Mathf.RoundToInt(_debounceSeconds * 1000f));
+        await Task.Delay(ms);
+
+        if (_interactable != null)
+        {
+            _interactable.ReleaseBusy();
+        }
+    }
+
+    public int GetNpcId()
+    {
+        return _npcId;
+    }
+
+    public void ApplyExternalCompletedState()
+    {
+        _state = QuestState.CompletedPendingDialogue;
+        ApplyInteractableVisualState();
+    }
+
+    private void ApplyInteractableVisualState()
+    {
+        if (_interactable == null)
+        {
+            return;
+        }
+
+        bool alwaysVisible = _state == QuestState.NotStarted || _state == QuestState.CompletedPendingDialogue;
+        _interactable.SetPersistentVisible(alwaysVisible);
     }
 }

@@ -11,7 +11,7 @@ namespace VRCollege.Net
         public async Task<ApiResult<ProfileDto>> GetProfileAsync()
         {
             string path = "/api/profile";
-            return await _client.GetJsonAsync<ProfileDto>(path);
+            return await _client.GetAsync<ProfileDto>(path);
         }
     }
 }

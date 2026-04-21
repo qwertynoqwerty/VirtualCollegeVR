@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe5d0f66b3a4a83a02266fd776f653e, type: 3}
+  m_Name: QuestDialogue Database
+  m_EditorClassIdentifier: 
+  _entries:
+  - npcId: 1
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
