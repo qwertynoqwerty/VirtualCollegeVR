@@ -229,7 +229,7 @@ MonoBehaviour:
   _nameText: {fileID: 6986124052613255731}
   _titleText: {fileID: 3470461782560102559}
   _background: {fileID: 5778608088835167821}
-  _notObtainedColor: {r: 1, g: 1, b: 1, a: 1}
+  _notObtainedColor: {r: 1, g: 0, b: 0, a: 1}
   _obtainedColor: {r: 0.298, g: 0.69, b: 0.31, a: 1}
 --- !u!1 &8201578874172818842
 GameObject:

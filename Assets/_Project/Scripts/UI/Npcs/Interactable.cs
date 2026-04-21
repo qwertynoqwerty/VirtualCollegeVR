@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    public static bool IsPlayerInsideAnyInteractable => _playerInsideCount > 0;
+
     [Header("Trigger")]
     [SerializeField] private string _playerTag = "Player";
 
@@ -29,6 +31,8 @@ public class Interactable : MonoBehaviour
     private bool _isBusy;
     private bool _persistentVisible;
     private Material _highlightMaterial;
+    private bool _countedInside;
+    private static int _playerInsideCount;
 
     public delegate void InteractHandler();
     public event InteractHandler OnInteract;
@@ -82,6 +86,11 @@ public class Interactable : MonoBehaviour
         }
 
         _insideTrigger = true;
+        if (_countedInside == false)
+        {
+            _countedInside = true;
+            _playerInsideCount++;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -93,6 +102,22 @@ public class Interactable : MonoBehaviour
 
         _insideTrigger = false;
         _isBusy = false;
+        if (_countedInside == true)
+        {
+            _countedInside = false;
+            _playerInsideCount = Mathf.Max(0, _playerInsideCount - 1);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_countedInside == true)
+        {
+            _countedInside = false;
+            _insideTrigger = false;
+            _isBusy = false;
+            _playerInsideCount = Mathf.Max(0, _playerInsideCount - 1);
+        }
     }
 
     public void ReleaseBusy()

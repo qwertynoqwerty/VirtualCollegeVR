@@ -16,7 +16,7 @@ public sealed class PanelsUIController : MonoBehaviour
 
     private void Update()
     {
-        if (UxrAvatar.LocalAvatarInput.GetButtonsPressDown(UxrHandSide.Right, UxrInputButtons.Button1))
+        if (UxrAvatar.LocalAvatarInput.GetButtonsPressDown(UxrHandSide.Left, UxrInputButtons.Button1))
         {
             ToggleHud();
         }

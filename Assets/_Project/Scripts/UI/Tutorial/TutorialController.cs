@@ -68,14 +68,7 @@ public sealed class TutorialController : MonoBehaviour
             return;
         }
 
-        bool isGuest = !JwtStorage.HasToken();
-        if (isGuest)
-        {
-            return;
-        }
-
-        bool first = UserSession.ConsumeIsFirstLogin();
-        if (first)
+        if (UserSession.LoadIsFirstLogin())
         {
             ShowPanel();
         }
