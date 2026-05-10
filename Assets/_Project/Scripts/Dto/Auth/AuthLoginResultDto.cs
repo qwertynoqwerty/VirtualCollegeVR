@@ -13,5 +13,6 @@ namespace VRCollege.Net.Dto
         public int specialtyId;
         public int logId;
         public bool isFirstLogin;
+        public bool tutorialCompleted;
     }
 }

@@ -1,4 +1,5 @@
 using System.Threading;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ public sealed class TutorialController : MonoBehaviour
     [SerializeField] private TutorialDialogueProfile _tutorialProfile;
 
     [Header("Flow")]
-    [SerializeField] private bool _autoShowFromFirstLogin = true;
+    [SerializeField] private bool _autoShowWhenTutorialIncomplete = true;
 
     [Header("Labels")]
     [SerializeField] private string _labelStart = "Начать знакомство";
@@ -33,6 +34,8 @@ public sealed class TutorialController : MonoBehaviour
     private int _currentStepIndex = -1;
     private bool _isActive;
     private CancellationTokenSource _cts;
+
+    public event Action Completed;
 
     private void Awake()
     {
@@ -63,12 +66,12 @@ public sealed class TutorialController : MonoBehaviour
     {
         HidePanel();
 
-        if (_autoShowFromFirstLogin == false)
+        if (_autoShowWhenTutorialIncomplete == false)
         {
             return;
         }
 
-        if (UserSession.LoadIsFirstLogin())
+        if (UserSession.LoadTutorialCompleted() == false)
         {
             ShowPanel();
         }
@@ -120,6 +123,7 @@ public sealed class TutorialController : MonoBehaviour
                 break;
             case TutorialUiState.ReadyToFinish:
                 HidePanel();
+                Completed?.Invoke();
                 break;
         }
     }

@@ -4,6 +4,7 @@ public static class UserSession
 {
     private const string _specKey = "vrcollege.specId";
     private const string _firstLoginKey = "vrcollege.isFirstLogin";
+    private const string _tutorialCompletedKey = "vrcollege.tutorialCompleted";
 
     public static void SaveSpecialtyId(int id)
     {
@@ -51,17 +52,22 @@ public static class UserSession
         return false;
     }
 
-    public static bool ConsumeIsFirstLogin()
+    public static void SaveTutorialCompleted(bool completed)
     {
-        bool flag = LoadIsFirstLogin();
-        if (flag)
+        PlayerPrefs.SetInt(_tutorialCompletedKey, completed ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    public static bool LoadTutorialCompleted()
+    {
+        if (PlayerPrefs.HasKey(_tutorialCompletedKey))
         {
-            SaveIsFirstLogin(false);
+            return PlayerPrefs.GetInt(_tutorialCompletedKey) == 1;
         }
 
-        return flag;
+        return false;
     }
-    
+
     public static void Clear()
     {
         if (PlayerPrefs.HasKey(_specKey))
@@ -72,6 +78,11 @@ public static class UserSession
         if (PlayerPrefs.HasKey(_firstLoginKey))
         {
             PlayerPrefs.DeleteKey(_firstLoginKey);
+        }
+
+        if (PlayerPrefs.HasKey(_tutorialCompletedKey))
+        {
+            PlayerPrefs.DeleteKey(_tutorialCompletedKey);
         }
 
         PlayerPrefs.Save();

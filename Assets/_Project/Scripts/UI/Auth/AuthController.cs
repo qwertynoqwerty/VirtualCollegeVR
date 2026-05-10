@@ -9,33 +9,31 @@ using VRCollege.Net.Dto;
 
 public sealed class AuthController : MonoBehaviour
 {
-    [Header("Ссылки")]
+    [Header("References")]
     [SerializeField] private SpecialtyDropdownBinder _specialtyBinder;
     [SerializeField] private AuthApi _authApi;
 
-    [Header("Регистрация")]
+    [Header("Register")]
     [SerializeField] private TMP_InputField _loginInputReg;
     [SerializeField] private TMP_InputField _passwordInputReg;
     [SerializeField] private TMP_InputField _nameInputReg;
     [SerializeField] private TMP_Text _errorTextReg;
     [SerializeField] private GameObject _registrationPanel;
 
-    [Header("Авторизация")]
+    [Header("Login")]
     [SerializeField] private TMP_InputField _loginInputAuth;
     [SerializeField] private TMP_InputField _passwordInputAuth;
     [SerializeField] private TMP_Text _errorTextAuth;
     [SerializeField] private GameObject _authPanel;
 
-    [Header("VR-клавиатура (опционально)")]
+    [Header("VR Keyboard")]
     [SerializeField] private UxrKeyboardUI _vrKeyboard;
 
-    [Header("Сцены / поведение")]
+    [Header("Scenes")]
     [SerializeField] private string _sceneAfterLogin = "Build";
     [SerializeField] private string _guestScene = "Other";
     [SerializeField] private string _authScene = "Test";
     [SerializeField] private bool _autoLoginAfterRegister = true;
-
-    private bool _useGenericErrors = true;
 
     private CancellationTokenSource _cts;
     private TMP_InputField _activeInput;
@@ -126,7 +124,7 @@ public sealed class AuthController : MonoBehaviour
 
         if (_loginInputReg == null || _passwordInputReg == null || _nameInputReg == null)
         {
-            SetRegStatus("Не настроены ссылки на поля регистрации");
+            SetRegStatus("РќРµ РЅР°СЃС‚СЂРѕРµРЅС‹ СЃСЃС‹Р»РєРё РЅР° РїРѕР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё");
             return;
         }
 
@@ -136,19 +134,19 @@ public sealed class AuthController : MonoBehaviour
 
         if (string.IsNullOrEmpty(login))
         {
-            SetRegStatus("Логин не может быть пустым");
+            SetRegStatus("Р›РѕРіРёРЅ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
             return;
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            SetRegStatus("Пароль не может быть пустым");
+            SetRegStatus("РџР°СЂРѕР»СЊ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
             return;
         }
 
         if (string.IsNullOrEmpty(name))
         {
-            SetRegStatus("Имя не может быть пустым");
+            SetRegStatus("РРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
             return;
         }
 
@@ -162,7 +160,7 @@ public sealed class AuthController : MonoBehaviour
             }
         }
 
-        SetRegStatus("Регистрация...");
+        SetRegStatus("Р РµРіРёСЃС‚СЂР°С†РёСЏ...");
         ApiResult<AuthRegisterResultDto> res =
             await _authApi.RegisterAsync(login, password, name, specialtyId, _cts.Token);
 
@@ -174,27 +172,13 @@ public sealed class AuthController : MonoBehaviour
             }
             else
             {
-                SetAuthStatus("Регистрация успешна! Войдите.");
+                SetAuthStatus("Р РµРіРёСЃС‚СЂР°С†РёСЏ СѓСЃРїРµС€РЅР°! Р’РѕР№РґРёС‚Рµ.");
                 ShowAuthPanel();
             }
         }
         else
         {
-            if (_useGenericErrors)
-            {
-                SetRegStatus("Не удалось зарегистрироваться");
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(res.Error))
-                {
-                    SetRegStatus("Не удалось зарегистрироваться");
-                }
-                else
-                {
-                    SetRegStatus(res.Error);
-                }
-            }
+            SetRegStatus("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ");
         }
     }
 
@@ -207,7 +191,7 @@ public sealed class AuthController : MonoBehaviour
 
         if (_loginInputAuth == null || _passwordInputAuth == null)
         {
-            SetAuthStatus("Не настроены ссылки на поля входа");
+            SetAuthStatus("РќРµ РЅР°СЃС‚СЂРѕРµРЅС‹ СЃСЃС‹Р»РєРё РЅР° РїРѕР»СЏ РІС…РѕРґР°");
             return;
         }
 
@@ -216,7 +200,7 @@ public sealed class AuthController : MonoBehaviour
 
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
         {
-            SetAuthStatus("Логин и пароль обязательны");
+            SetAuthStatus("Р›РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹");
             return;
         }
 
@@ -225,7 +209,7 @@ public sealed class AuthController : MonoBehaviour
 
     private async Task LoginInternal(string login, string password)
     {
-        SetAuthStatus("Вход...");
+        SetAuthStatus("Р’С…РѕРґ...");
         ApiResult<AuthLoginResultDto> res = await _authApi.LoginAsync(login, password, _cts.Token);
 
         if (res.IsSuccess)
@@ -235,37 +219,26 @@ public sealed class AuthController : MonoBehaviour
                 if (!string.IsNullOrEmpty(res.Data.token))
                     JwtStorage.Save(res.Data.token);
 
-                UserSession.SaveSpecialtyId(res.Data.specialtyId);   // <- внутрь проверки
+                UserSession.SaveSpecialtyId(res.Data.specialtyId);
                 UserSession.SaveIsFirstLogin(res.Data.isFirstLogin);
+                UserSession.SaveTutorialCompleted(res.Data.tutorialCompleted);
             }
 
-            SetAuthStatus("Вход успешен.");
+            SetAuthStatus("Р’С…РѕРґ СѓСЃРїРµС€РµРЅ.");
             if (!string.IsNullOrEmpty(_sceneAfterLogin))
                 SceneManager.LoadScene(_sceneAfterLogin);
         }
 
         else
         {
-            string msg = "Ошибка входа.";
-            if (_useGenericErrors)
-            {
-                msg = "Неверный логин или пароль";
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(res.Error) == false)
-                {
-                    msg = res.Error;
-                }
-            }
-            SetAuthStatus(msg);
+            SetAuthStatus("РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ");
         }
     }
 
 
     public async void Logout()
     {
-        SetAuthStatus("Выход...");
+        SetAuthStatus("Р’С‹С…РѕРґ...");
 
         ApiResult<AuthLogoutResultDto> res = await _authApi.LogoutAsync(_cts.Token);
 
@@ -279,7 +252,7 @@ public sealed class AuthController : MonoBehaviour
 
         if (res.IsSuccess)
         {
-            SetAuthStatus("Вы вышли.");
+            SetAuthStatus("Р’С‹ РІС‹С€Р»Рё.");
             if (string.IsNullOrEmpty(_authScene) == false)
             {
                 SceneManager.LoadScene(_authScene);
@@ -291,7 +264,7 @@ public sealed class AuthController : MonoBehaviour
         }
         else
         {
-            string msg = "Ошибка выхода.";
+            string msg = "РћС€РёР±РєР° РІС‹С…РѕРґР°.";
             if (string.IsNullOrEmpty(res.Error) == false)
             {
                 msg = res.Error;
@@ -430,6 +403,5 @@ public sealed class AuthController : MonoBehaviour
         };
         _vrKeyboard.CurrentLineChanged += _lineChangedHandler;
 
-        _vrKeyboard.gameObject.SetActive(true);
     }
 }

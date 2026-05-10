@@ -7,7 +7,7 @@ public sealed class InfoNpcController : MonoBehaviour
     [SerializeField] private DialoguePlayer _dialoguePlayer;
     [SerializeField] private InfoNpcDialogueDatabase _dialogueDatabase;
     [SerializeField] private int _infoId;
-    [SerializeField] private float _debounceSeconds = 0.4f;
+    [HideInInspector] [SerializeField] private float _debounceSeconds = 0.4f;
 
     private bool _isPlaying;
 

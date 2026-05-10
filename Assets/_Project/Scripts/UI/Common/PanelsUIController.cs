@@ -10,7 +10,7 @@ public sealed class PanelsUIController : MonoBehaviour
     [SerializeField] private GameObject _questsPanel;
     [SerializeField] private GameObject _achievementsPanel;
 
-    [Header("Controllers (optional)")]
+    [Header("Controllers")]
     [SerializeField] private QuestJournalPanelController _questsController;
     [SerializeField] private AchievementsPanelController _achievementsController;
 
@@ -24,6 +24,12 @@ public sealed class PanelsUIController : MonoBehaviour
 
     private void ToggleHud()
     {
+        if (CanOpenPanels() == false)
+        {
+            HideAll();
+            return;
+        }
+
         if (IsAnyOpen() == true)
         {
             HideAll();
@@ -36,6 +42,12 @@ public sealed class PanelsUIController : MonoBehaviour
 
     public void ShowProfile()
     {
+        if (CanOpenPanels() == false)
+        {
+            HideAll();
+            return;
+        }
+
         SetActive(_profilePanel, true);
         SetActive(_questsPanel, false);
         SetActive(_achievementsPanel, false);
@@ -48,6 +60,12 @@ public sealed class PanelsUIController : MonoBehaviour
 
     public void ShowQuests()
     {
+        if (CanOpenPanels() == false)
+        {
+            HideAll();
+            return;
+        }
+
         SetActive(_profilePanel, false);
         SetActive(_achievementsPanel, false);
         SetActive(_questsPanel, true);
@@ -60,9 +78,20 @@ public sealed class PanelsUIController : MonoBehaviour
 
     public void ShowAchievements()
     {
+        if (CanOpenPanels() == false)
+        {
+            HideAll();
+            return;
+        }
+
         SetActive(_profilePanel, false);
         SetActive(_questsPanel, false);
         SetActive(_achievementsPanel, true);
+
+        if (_achievementsController != null)
+        {
+            _ = _achievementsController.Refresh();
+        }
     }
 
     public void HideAll()
@@ -83,6 +112,11 @@ public sealed class PanelsUIController : MonoBehaviour
         if (_questsPanel != null && _questsPanel.activeSelf == true) return true;
         if (_achievementsPanel != null && _achievementsPanel.activeSelf == true) return true;
         return false;
+    }
+
+    private static bool CanOpenPanels()
+    {
+        return UserSession.LoadTutorialCompleted();
     }
 
     private static void SetActive(GameObject go, bool state)

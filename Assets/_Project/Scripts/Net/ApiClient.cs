@@ -21,6 +21,11 @@ public sealed class ApiClient : MonoBehaviour
 
     public async Task<ApiResult<T>> GetAsync<T>(string path, CancellationToken ct = default)
     {
+        if (_env == null)
+        {
+            return ApiResult<T>.Fail(0, "ApiEnvironment is not assigned");
+        }
+
         using (UnityWebRequest req = UnityWebRequest.Get(BuildUrl(path)))
         {
             AttachAuth(req);
@@ -48,6 +53,11 @@ public sealed class ApiClient : MonoBehaviour
 
     public async Task<ApiResult<TResponse>> PostJsonAsync<TRequest, TResponse>(string path, TRequest body, CancellationToken ct = default)
     {
+        if (_env == null)
+        {
+            return ApiResult<TResponse>.Fail(0, "ApiEnvironment is not assigned");
+        }
+
         string json = JsonUtility.ToJson(body);
         byte[] payload = Encoding.UTF8.GetBytes(json);
 
@@ -181,6 +191,12 @@ public sealed class ApiClient : MonoBehaviour
             return ApiResult<T>.Success(default(T));
         }
 
+        if (typeof(T) == typeof(string))
+        {
+            object boxed = text;
+            return ApiResult<T>.Success((T)boxed);
+        }
+
         try
         {
             T data = JsonUtility.FromJson<T>(text);
@@ -188,12 +204,6 @@ public sealed class ApiClient : MonoBehaviour
         }
         catch (Exception)
         {
-            if (typeof(T) == typeof(string))
-            {
-                object boxed = text;
-                return ApiResult<T>.Success((T)boxed);
-            }
-
             string err = "Invalid JSON: " + text;
             return ApiResult<T>.Fail(code, err);
         }

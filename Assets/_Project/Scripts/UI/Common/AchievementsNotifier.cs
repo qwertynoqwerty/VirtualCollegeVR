@@ -62,11 +62,13 @@ public sealed class AchievementsNotifier : MonoBehaviour
 
         if (_profileApi == null)
         {
+            Debug.LogError("[AchievementsNotifier] ProfileApi is null.");
             return;
         }
 
         if (_toast == null)
         {
+            Debug.LogError("[AchievementsNotifier] GlobalToast is null.");
             return;
         }
 
@@ -75,6 +77,7 @@ public sealed class AchievementsNotifier : MonoBehaviour
         ApiResult<ProfileDto> res = await _profileApi.GetProfileAsync();
         if (res.IsSuccess == false || res.Data == null || res.Data.achievements == null)
         {
+            Debug.LogError("[AchievementsNotifier] Failed to load achievements. Error: " + res.Error);
             _busy = false;
             return;
         }

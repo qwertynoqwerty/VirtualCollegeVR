@@ -30,6 +30,7 @@ public class Interactable : MonoBehaviour
     private bool _insideTrigger;
     private bool _isBusy;
     private bool _persistentVisible;
+    private bool _interactionEnabled = true;
     private Material _highlightMaterial;
     private bool _countedInside;
     private static int _playerInsideCount;
@@ -56,6 +57,11 @@ public class Interactable : MonoBehaviour
         if (_persistentVisible == true)
         {
             UpdateHighlightPulse();
+        }
+
+        if (_interactionEnabled == false)
+        {
+            return;
         }
 
         if (_insideTrigger == false)
@@ -123,6 +129,21 @@ public class Interactable : MonoBehaviour
     public void ReleaseBusy()
     {
         _isBusy = false;
+    }
+
+    public void SetInteractionEnabled(bool value)
+    {
+        _interactionEnabled = value;
+
+        if (_interactionEnabled == false)
+        {
+            _isBusy = false;
+            HidePromptAndHighlight();
+        }
+        else if (_persistentVisible == true)
+        {
+            ShowPromptAndHighlight();
+        }
     }
 
     public void SetPersistentVisible(bool value)

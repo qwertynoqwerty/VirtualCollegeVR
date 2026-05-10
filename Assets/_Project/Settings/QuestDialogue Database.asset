@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe5d0f66b3a4a83a02266fd776f653e, type: 3}
   m_Name: QuestDialogue Database
   m_EditorClassIdentifier: 
+  _defaultWrongSpecialtyLines: []
+  _defaultTutorialRequiredLines: []
   _entries:
   - npcId: 1
     startQuestLines:
@@ -26,3 +28,145 @@ MonoBehaviour:
     completedRepeatLines:
     - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
       audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines:
+    - text: 
+      audioClip: {fileID: 0}
+  - npcId: 2
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []
+  - npcId: 3
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []
+  - npcId: 4
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []
+  - npcId: 5
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []
+  - npcId: 6
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []
+  - npcId: 7
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []
+  - npcId: 8
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []
+  - npcId: 9
+    startQuestLines:
+    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    inProgressRepeatLines:
+    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    completeQuestLines:
+    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
+      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    completedRepeatLines:
+    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
+      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
+    wrongSpecialtyLines:
+    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
+      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
+    tutorialRequiredLines: []

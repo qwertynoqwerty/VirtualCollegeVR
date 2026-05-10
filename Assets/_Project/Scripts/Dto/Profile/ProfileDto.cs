@@ -13,5 +13,6 @@ namespace VRCollege.Net.Dto
 
         public int daysSinceLastLogin;
         public int totalHoursPlayed;
+        public bool tutorialCompleted;
     }
 }

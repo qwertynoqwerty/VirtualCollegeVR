@@ -13,6 +13,7 @@ namespace VRCollege.Net.Dto
 
         public int npcId;
         public string npcName;
+        public int specialtyId;
         public int status;
     }
 }

@@ -1,11 +1,11 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 using VRCollege.Net;
 using VRCollege.Net.Dto;
 
 public class NpcQuestRuntime : MonoBehaviour
 {
-    [Header("Bindings")]
+    [Header("References")]
     [SerializeField] private Interactable _interactable;
     [SerializeField] private DialoguePlayer _dialoguePlayer;
     [SerializeField] private ProgressApi _progressApi;
@@ -17,9 +17,11 @@ public class NpcQuestRuntime : MonoBehaviour
     [SerializeField] private int _npcId;
 
     [Header("Flow")]
-    [SerializeField] private float _debounceSeconds = 0.4f;
+    [HideInInspector] [SerializeField] private float _debounceSeconds = 0.4f;
     [SerializeField] private float _toastVisibleSeconds = 2.0f;
     [SerializeField] private string _questTakenToast = "Р—Р°РґР°РЅРёРµ РїРѕР»СѓС‡РµРЅРѕ";
+
+    [SerializeField] private DialogueLine[] _tutorialRequiredLines;
 
     private enum QuestState
     {
@@ -33,6 +35,7 @@ public class NpcQuestRuntime : MonoBehaviour
 
     private QuestState _state = QuestState.Unknown;
     private bool _isBusy;
+    private bool _specialtyAllowed = true;
 
     private void Awake()
     {
@@ -75,7 +78,31 @@ public class NpcQuestRuntime : MonoBehaviour
         }
 
         _isBusy = true;
+
+        if (UserSession.LoadTutorialCompleted() == false)
+        {
+            DialogueLine[] tutorialRequiredLines = _dialogueDatabase != null ? _dialogueDatabase.GetTutorialRequiredLines(_npcId) : null;
+            if (tutorialRequiredLines == null || tutorialRequiredLines.Length == 0)
+            {
+                tutorialRequiredLines = _tutorialRequiredLines;
+            }
+
+            await PlayDialogueAsync(tutorialRequiredLines);
+            await DebounceAndReleaseAsync();
+            _isBusy = false;
+            return;
+        }
+
         await RefreshStateFromApiAsync();
+
+        if (_specialtyAllowed == false)
+        {
+            DialogueLine[] wrongLines = ResolveWrongSpecialtyLines();
+            await PlayDialogueAsync(wrongLines);
+            await DebounceAndReleaseAsync();
+            _isBusy = false;
+            return;
+        }
 
         if (_state == QuestState.NotStarted || _state == QuestState.CompletedPendingDialogue)
         {
@@ -121,6 +148,11 @@ public class NpcQuestRuntime : MonoBehaviour
 
     public async void MarkQuestCompleted()
     {
+        if (_specialtyAllowed == false)
+        {
+            return;
+        }
+
         if (_isBusy)
         {
             return;
@@ -136,7 +168,7 @@ public class NpcQuestRuntime : MonoBehaviour
             return;
         }
 
-        var complete = await _progressApi.CompleteQuestAsync(_npcId);
+        ApiResult<ProgressCompleteResponse> complete = await _progressApi.CompleteQuestAsync(_npcId);
         if (complete.IsSuccess == false || complete.Data == null)
         {
             Debug.LogWarning("[NpcQuestRuntime] CompleteQuestAsync failed for npcId=" + _npcId);
@@ -148,7 +180,7 @@ public class NpcQuestRuntime : MonoBehaviour
         _state = QuestState.CompletedPendingDialogue;
         ApplyInteractableVisualState();
 
-        var notifier = FindFirstObjectByType<AchievementsNotifier>(FindObjectsInactive.Include);
+        AchievementsNotifier notifier = FindFirstObjectByType<AchievementsNotifier>(FindObjectsInactive.Include);
         if (notifier != null)
         {
             await notifier.CheckAndNotifyAsync();
@@ -160,7 +192,7 @@ public class NpcQuestRuntime : MonoBehaviour
 
     private async Task StartQuestFlowAsync()
     {
-        var start = await _progressApi.StartQuestAsync(_npcId);
+        ApiResult<ProgressStartResponse> start = await _progressApi.StartQuestAsync(_npcId);
         if (start.IsSuccess == false || start.Data == null)
         {
             await RefreshStateFromApiAsync();
@@ -189,7 +221,7 @@ public class NpcQuestRuntime : MonoBehaviour
             return;
         }
 
-        var res = await _progressStatesApi.GetStatesAsync();
+        ApiResult<ProgressStateDto[]> res = await _progressStatesApi.GetStatesAsync();
         if (res.IsSuccess == false || res.Data == null)
         {
             _state = QuestState.NotStarted;
@@ -211,6 +243,16 @@ public class NpcQuestRuntime : MonoBehaviour
             _state = QuestState.NotStarted;
             return;
         }
+
+        if (match.specialtyId > 0 && UserSession.LoadSpecialtyId() != match.specialtyId)
+        {
+            _specialtyAllowed = false;
+            _state = QuestState.Unknown;
+            ApplyInteractableVisualState();
+            return;
+        }
+
+        _specialtyAllowed = true;
 
         if (match.status == ProgressStateDto.NotStarted)
         {
@@ -245,7 +287,7 @@ public class NpcQuestRuntime : MonoBehaviour
             return false;
         }
 
-        var res = await _progressApi.AdvanceQuestStateAsync(_npcId, fromStatus);
+        ApiResult<ProgressAdvanceResponse> res = await _progressApi.AdvanceQuestStateAsync(_npcId, fromStatus);
         if (res.IsSuccess == false || res.Data == null)
         {
             Debug.LogWarning("[NpcQuestRuntime] AdvanceQuestStateAsync failed for npcId=" + _npcId + " fromStatus=" + fromStatus);
@@ -294,7 +336,24 @@ public class NpcQuestRuntime : MonoBehaviour
             return;
         }
 
+        if (_specialtyAllowed == false)
+        {
+            _interactable.SetPersistentVisible(false);
+            _interactable.HideVisualNow();
+            return;
+        }
+
         bool alwaysVisible = _state == QuestState.NotStarted || _state == QuestState.CompletedPendingDialogue;
         _interactable.SetPersistentVisible(alwaysVisible);
+    }
+
+    private DialogueLine[] ResolveWrongSpecialtyLines()
+    {
+        if (_dialogueDatabase != null)
+        {
+            return _dialogueDatabase.GetWrongSpecialtyLines(_npcId);
+        }
+
+        return null;
     }
 }
