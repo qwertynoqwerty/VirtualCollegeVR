@@ -93,6 +93,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -234,6 +237,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -383,6 +389,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -471,11 +480,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6646054267595162889}
     m_Modifications:
-    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -541,6 +545,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c4d3d2a7929157c408f1899c35100af5,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_Name
@@ -550,6 +559,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -570,11 +584,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7815936248486850225}
     m_Modifications:
-    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -640,6 +649,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c4d3d2a7929157c408f1899c35100af5,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_Name
@@ -649,6 +663,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -669,11 +688,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7815936248486850225}
     m_Modifications:
-    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -739,6 +753,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c4d3d2a7929157c408f1899c35100af5,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_Name
@@ -748,6 +767,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -768,11 +792,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6646054267595162889}
     m_Modifications:
-    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -838,6 +857,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c4d3d2a7929157c408f1899c35100af5,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4d3d2a7929157c408f1899c35100af5,
         type: 3}
       propertyPath: m_Name
@@ -847,6 +871,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3d9bd782b93d3234bb9f5660497eed29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
