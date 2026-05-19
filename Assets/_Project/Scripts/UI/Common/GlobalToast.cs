@@ -8,11 +8,10 @@ public class GlobalToast : MonoBehaviour
 
     [SerializeField] private GameObject _root;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private AudioSource _audioSource;
 
-    [Header("Defaults")]
-    [SerializeField] private float _defaultDelayBefore = 0f;
-    [SerializeField] private float _defaultVisible = 2.5f;
-
+    private float _defaultDelayBefore = 0f;
+    private float _defaultVisible = 2.5f;
     private Coroutine _co;
 
     protected virtual void Awake()
@@ -85,6 +84,12 @@ public class GlobalToast : MonoBehaviour
         if (_root != null)
         {
             _root.SetActive(true);
+        }
+
+        if (_audioSource != null)
+        {
+            _audioSource.Stop();
+            _audioSource.Play();
         }
 
         if (visibleSeconds > 0f)

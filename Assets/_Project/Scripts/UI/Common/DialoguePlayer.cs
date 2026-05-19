@@ -7,13 +7,12 @@ public sealed class DialoguePlayer : MonoBehaviour
 {
     [Header("Root")]
     [SerializeField] private GameObject _dialogueRoot;
-    [SerializeField] private bool _autoToggleRoot = true;
-
     [SerializeField] private TMP_Text _textLabel;
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private float _typewriterCharsPerSecond = 35f;
-    [SerializeField] private float _fallbackStepSeconds = 2.5f;
-
+    
+    private float _typewriterCharsPerSecond = 35f;
+    private float _fallbackStepSeconds = 2.5f;
+    private bool _autoToggleRoot = true;
     public bool IsPlaying { get; private set; }
     private bool _suppressAutoHide;
 

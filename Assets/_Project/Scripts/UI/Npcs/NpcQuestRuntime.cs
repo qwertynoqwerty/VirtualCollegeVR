@@ -19,7 +19,9 @@ public class NpcQuestRuntime : MonoBehaviour
     [Header("Flow")]
     [HideInInspector] [SerializeField] private float _debounceSeconds = 0.4f;
     [SerializeField] private float _toastVisibleSeconds = 2.0f;
-    [SerializeField] private string _questTakenToast = "Р—Р°РґР°РЅРёРµ РїРѕР»СѓС‡РµРЅРѕ";
+    [SerializeField] private string _questTakenToast = "Задание получено";
+    [SerializeField] private string _questCompletedToast = "Задание выполнено";
+    [SerializeField] private float _achievementToastDelayAfterQuestSeconds = 1.5f;
 
     [SerializeField] private DialogueLine[] _tutorialRequiredLines;
 
@@ -180,10 +182,15 @@ public class NpcQuestRuntime : MonoBehaviour
         _state = QuestState.CompletedPendingDialogue;
         ApplyInteractableVisualState();
 
+        if (_toast != null && string.IsNullOrEmpty(_questCompletedToast) == false)
+        {
+            _toast.Show(_questCompletedToast, 0f, _toastVisibleSeconds);
+        }
+
         AchievementsNotifier notifier = FindFirstObjectByType<AchievementsNotifier>(FindObjectsInactive.Include);
         if (notifier != null)
         {
-            await notifier.CheckAndNotifyAsync();
+            await notifier.CheckAndNotifyAsync(_achievementToastDelayAfterQuestSeconds);
         }
 
         await DebounceAndReleaseAsync();

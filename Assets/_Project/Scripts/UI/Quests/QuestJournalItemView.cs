@@ -5,16 +5,18 @@ using VRCollege.Net.Dto;
 
 public sealed class QuestJournalItemView : MonoBehaviour
 {
+    [SerializeField] private TMP_Text _numberText;
     [SerializeField] private TMP_Text _titleText;
-    [SerializeField] private TMP_Text _stateText;
-    [SerializeField] private Image _background;
-
-    [Header("Colors")]
-    [SerializeField] private Color _inProgressColor = new Color(1f, 1f, 1f, 1f);
-    [SerializeField] private Color _completedColor  = new Color(0.298f, 0.690f, 0.310f, 1f);
+    [SerializeField] private TMP_Text _hintText;
+    [SerializeField] private Image[] _stateImages = new Image[2];
 
     public void Bind(ProgressStateDto dto)
     {
+        if (_numberText != null)
+        {
+            _numberText.text = dto.npcId.ToString("00");
+        }
+
         if (_titleText != null)
         {
             if (string.IsNullOrEmpty(dto.npcName))
@@ -37,27 +39,34 @@ public sealed class QuestJournalItemView : MonoBehaviour
             isCompleted = false;
         }
 
-        if (_stateText != null)
+        if (_hintText != null)
         {
             if (isCompleted == true)
             {
-                _stateText.text = "Завершено";
+                _hintText.text = "Завершено";
             }
             else
             {
-                _stateText.text = "В процессе";
+                _hintText.text = "В процессе";
             }
         }
 
-        if (_background != null)
+        ApplyStateImage(isCompleted);
+    }
+
+    private void ApplyStateImage(bool isCompleted)
+    {
+        if (_stateImages == null)
         {
-            if (isCompleted == true)
+            return;
+        }
+
+        int activeIndex = isCompleted ? 1 : 0;
+        for (int i = 0; i < _stateImages.Length; i++)
+        {
+            if (_stateImages[i] != null)
             {
-                _background.color = _completedColor;
-            }
-            else
-            {
-                _background.color = _inProgressColor;
+                _stateImages[i].gameObject.SetActive(i == activeIndex);
             }
         }
     }

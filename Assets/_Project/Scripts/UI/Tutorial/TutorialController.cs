@@ -22,13 +22,12 @@ public sealed class TutorialController : MonoBehaviour
     [SerializeField] private DialoguePlayer _dialoguePlayer;
     [SerializeField] private TutorialDialogueProfile _tutorialProfile;
 
-    [Header("Flow")]
-    [SerializeField] private bool _autoShowWhenTutorialIncomplete = true;
-
     [Header("Labels")]
     [SerializeField] private string _labelStart = "Начать знакомство";
     [SerializeField] private string _labelContinue = "Далее";
     [SerializeField] private string _labelFinish = "Завершить";
+
+    private bool _autoShowWhenTutorialIncomplete = true;
 
     private TutorialUiState _uiState = TutorialUiState.ReadyToStart;
     private int _currentStepIndex = -1;

@@ -1,7 +1,10 @@
+using System.Threading;
 using UltimateXR.Avatar;
 using UltimateXR.Core;
 using UltimateXR.Devices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using VRCollege.Net.Dto;
 
 public sealed class PanelsUIController : MonoBehaviour
 {
@@ -13,6 +16,33 @@ public sealed class PanelsUIController : MonoBehaviour
     [Header("Controllers")]
     [SerializeField] private QuestJournalPanelController _questsController;
     [SerializeField] private AchievementsPanelController _achievementsController;
+
+    [Header("Session")]
+    [SerializeField] private AuthApi _authApi;
+    [SerializeField] private string _authScene = "AuthScene";
+
+    private CancellationTokenSource _cts;
+    private bool _isLoggingOut;
+
+    private void Awake()
+    {
+        _cts = new CancellationTokenSource();
+
+        if (_authApi == null)
+        {
+            _authApi = FindFirstObjectByType<AuthApi>(FindObjectsInactive.Include);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_cts != null)
+        {
+            _cts.Cancel();
+            _cts.Dispose();
+            _cts = null;
+        }
+    }
 
     private void Update()
     {
@@ -104,6 +134,40 @@ public sealed class PanelsUIController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public async void LogoutAndGoToAuthScene()
+    {
+        if (_isLoggingOut)
+        {
+            return;
+        }
+
+        _isLoggingOut = true;
+
+        if (_authApi == null)
+        {
+            _authApi = FindFirstObjectByType<AuthApi>(FindObjectsInactive.Include);
+        }
+
+        if (_authApi != null)
+        {
+            ApiResult<AuthLogoutResultDto> _ = await _authApi.LogoutAsync(_cts.Token);
+        }
+
+        UserSession.Clear();
+        JwtStorage.Clear();
+
+        PlayerPrefs.DeleteKey("vrcollege.seen.ach.codes");
+        PlayerPrefs.DeleteKey("vrcollege.fail.attempts");
+        PlayerPrefs.Save();
+
+        if (string.IsNullOrEmpty(_authScene) == false)
+        {
+            SceneManager.LoadScene(_authScene);
+        }
+
+        _isLoggingOut = false;
     }
 
     private bool IsAnyOpen()

@@ -8,8 +8,8 @@ using UnityEngine.Networking;
 public sealed class ApiClient : MonoBehaviour
 {
     [SerializeField] private ApiEnvironment _env;
-    [SerializeField] private int _timeoutSeconds = 15;
-    [SerializeField] private bool _autoClearTokenOn401 = true;
+    private int _timeoutSeconds = 15;
+    private bool _autoClearTokenOn401 = true;
 
     private void Awake()
     {

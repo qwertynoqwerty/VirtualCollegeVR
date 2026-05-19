@@ -15,9 +15,9 @@ public sealed class AchievementsNotifier : MonoBehaviour
     [SerializeField] private bool _autoCheckOnStart = true;
     [SerializeField] private float _startDelaySeconds = 0.7f;
 
-    [SerializeField] private float _postUnlockDelaySeconds = 3f;
+    [SerializeField] private float _postUnlockDelaySeconds = 0f;
     [SerializeField] private float _toastVisibleSeconds = 5f;
-    [SerializeField] private string _message = "Достижение получено. Откройте профиль.";
+    [SerializeField] private string _message = "Получено достижение, проверьте профиль";
 
     private const string _prefsKey = "vrcollege.seen.ach.codes";
     private bool _busy;
@@ -54,6 +54,11 @@ public sealed class AchievementsNotifier : MonoBehaviour
     }
 
     public async Task CheckAndNotifyAsync()
+    {
+        await CheckAndNotifyAsync(_postUnlockDelaySeconds);
+    }
+
+    public async Task CheckAndNotifyAsync(float delayBeforeToast)
     {
         if (_busy == true)
         {
@@ -111,12 +116,13 @@ public sealed class AchievementsNotifier : MonoBehaviour
 
                     if (isNew == true)
                     {
-                        _toast.Show(_message, _postUnlockDelaySeconds, _toastVisibleSeconds);
+                        float delay = Mathf.Max(0f, delayBeforeToast);
+                        _toast.Show(_message, delay, _toastVisibleSeconds);
 
                         seen.Add(a.code);
                         changed = true;
 
-                        int ms = Mathf.RoundToInt((_postUnlockDelaySeconds + _toastVisibleSeconds + 0.1f) * 1000f);
+                        int ms = Mathf.RoundToInt((delay + _toastVisibleSeconds + 0.1f) * 1000f);
                         await Task.Delay(ms);
                     }
                 }

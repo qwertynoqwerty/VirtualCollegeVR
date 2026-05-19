@@ -5,24 +5,26 @@ using VRCollege.Net.Dto;
 
 public sealed class AchievementItemView : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _nameText;
+    [SerializeField] private TMP_Text _numberText;
     [SerializeField] private TMP_Text _titleText;
-    [SerializeField] private Image _background;
-
-    [Header("Colors")]
-    [SerializeField] private Color _notObtainedColor = new Color(1f, 1f, 1f, 1f);
-    [SerializeField] private Color _obtainedColor    = new Color(0.298f, 0.690f, 0.310f, 1f);
+    [SerializeField] private TMP_Text _hintText;
+    [SerializeField] private Image[] _stateImages = new Image[2];
 
     public void Bind(AchievementDto dto)
     {
-        if (_nameText != null)
+        if (_numberText != null)
         {
-            _nameText.text = dto.name;
+            _numberText.text = dto.achievementId.ToString("00");
         }
 
         if (_titleText != null)
         {
-            _titleText.text = dto.title;
+            _titleText.text = dto.name;
+        }
+
+        if (_hintText != null)
+        {
+            _hintText.text = dto.title;
         }
 
         bool got = false;
@@ -35,15 +37,22 @@ public sealed class AchievementItemView : MonoBehaviour
             got = false;
         }
 
-        if (_background != null)
+        ApplyStateImage(got);
+    }
+
+    private void ApplyStateImage(bool isObtained)
+    {
+        if (_stateImages == null)
         {
-            if (got == true)
+            return;
+        }
+
+        int activeIndex = isObtained ? 1 : 0;
+        for (int i = 0; i < _stateImages.Length; i++)
+        {
+            if (_stateImages[i] != null)
             {
-                _background.color = _obtainedColor;
-            }
-            else
-            {
-                _background.color = _notObtainedColor;
+                _stateImages[i].gameObject.SetActive(i == activeIndex);
             }
         }
     }

@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 using VRCollege.Net;
 using VRCollege.Net.Dto;
@@ -18,7 +18,7 @@ public sealed class OnboardingFlowController : MonoBehaviour
     [SerializeField] private OnboardingNpcController _mtoNpc;
 
     [Header("Flow")]
-    [SerializeField] private string _completedToast = "Знакомство с колледжем завершено!";
+    [SerializeField] private string _completedToast = "Обучение пройдено";
     private float _toastVisibleSeconds = 2.5f;
 
     private OnboardingStep _currentStep = OnboardingStep.Curator;
