@@ -1,7 +1,4 @@
 using TMPro;
-using UltimateXR.Avatar;
-using UltimateXR.Core;
-using UltimateXR.Devices;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour
@@ -12,9 +9,10 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string _playerTag = "Player";
 
     [Header("Input")]
-    [SerializeField] private UxrHandSide _handSide = UxrHandSide.Left;
-    [SerializeField] private UxrInputButtons _inputButton = UxrInputButtons.Button1;
-    [SerializeField] private bool _acceptButton2 = true;
+    [SerializeField] private OVRInput.Controller _inputController = OVRInput.Controller.LTouch;
+    [SerializeField] private OVRInput.Button _inputButton = OVRInput.Button.One;
+    [SerializeField] private bool _acceptAltButton = true;
+    [SerializeField] private OVRInput.Button _altInputButton = OVRInput.Button.Two;
 
     [Header("Prompt")]
     [SerializeField] private TMP_Text _promptLabel;
@@ -74,8 +72,8 @@ public class Interactable : MonoBehaviour
             return;
         }
 
-        bool pressedPrimary = UxrAvatar.LocalAvatarInput.GetButtonsPressDown(_handSide, _inputButton);
-        bool pressedAlt = _acceptButton2 && UxrAvatar.LocalAvatarInput.GetButtonsPressDown(_handSide, UxrInputButtons.Button2);
+        bool pressedPrimary = OVRInput.GetDown(_inputButton, _inputController);
+        bool pressedAlt = _acceptAltButton && OVRInput.GetDown(_altInputButton, _inputController);
 
         if (pressedPrimary || pressedAlt)
         {

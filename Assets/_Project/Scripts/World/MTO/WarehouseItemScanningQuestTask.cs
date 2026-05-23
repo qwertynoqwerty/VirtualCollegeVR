@@ -1,6 +1,3 @@
-using UltimateXR.Avatar;
-using UltimateXR.Core;
-using UltimateXR.Devices;
 using UnityEngine;
 using VRCollege.Net;
 using VRCollege.Net.Dto;
@@ -13,8 +10,8 @@ public sealed class WarehouseItemScanningQuestTask : MonoBehaviour
 
     [Header("Scanner")]
     [SerializeField] private WarehouseQuestItem _scannerItem;
-    [SerializeField] private UxrHandSide _scanInputHand = UxrHandSide.Right;
-    [SerializeField] private UxrInputButtons _scanInputButton = UxrInputButtons.Trigger;
+    [SerializeField] private OVRInput.Controller _scanInputController = OVRInput.Controller.RTouch;
+    [SerializeField] private OVRInput.Button _scanInputButton = OVRInput.Button.PrimaryIndexTrigger;
 
     [Header("Scan Targets")]
     [SerializeField] private GameObject[] _targets;
@@ -61,8 +58,7 @@ public sealed class WarehouseItemScanningQuestTask : MonoBehaviour
             return;
         }
 
-        bool triggerPressed = UxrAvatar.LocalAvatarInput != null &&
-                              UxrAvatar.LocalAvatarInput.GetButtonsPressDown(_scanInputHand, _scanInputButton);
+        bool triggerPressed = OVRInput.GetDown(_scanInputButton, _scanInputController);
 
         if (triggerPressed && _scannerItem.IsGrabbed)
         {

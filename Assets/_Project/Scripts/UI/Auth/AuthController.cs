@@ -1,8 +1,7 @@
-﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
-using UltimateXR.UI.Helpers.Keyboard;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VRCollege.Net.Dto;
@@ -10,13 +9,14 @@ using VRCollege.Net.Dto;
 public sealed class AuthController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private SpecialtyDropdownBinder _specialtyBinder;
     [SerializeField] private AuthApi _authApi;
+    [SerializeField] private SpecialtiesApi _specialtiesApi;
 
     [Header("Register")]
     [SerializeField] private TMP_InputField _loginInputReg;
     [SerializeField] private TMP_InputField _passwordInputReg;
     [SerializeField] private TMP_InputField _nameInputReg;
+    [SerializeField] private TMP_Dropdown _specialtyDropdown;
     [SerializeField] private TMP_Text _errorTextReg;
     [SerializeField] private GameObject _registrationPanel;
 
@@ -26,23 +26,17 @@ public sealed class AuthController : MonoBehaviour
     [SerializeField] private TMP_Text _errorTextAuth;
     [SerializeField] private GameObject _authPanel;
 
-    [Header("VR Keyboard")]
-    [SerializeField] private UxrKeyboardUI _vrKeyboard;
-
     [Header("Scenes")]
     [SerializeField] private string _sceneAfterLogin = "Build";
     [SerializeField] private string _guestScene = "Other";
-    [SerializeField] private bool _autoLoginAfterRegister = true;
-
+    
+    private bool _autoLoginAfterRegister = true;
     private CancellationTokenSource _cts;
-    private TMP_InputField _activeInput;
-    private EventHandler<string> _lineChangedHandler;
+    private List<SpecialtyDto> _specialties = new List<SpecialtyDto>();
 
     private void Awake()
     {
         _cts = new CancellationTokenSource();
-
-        BindVrKeyboardListeners();
 
         if (_errorTextReg != null)
         {
@@ -55,6 +49,7 @@ public sealed class AuthController : MonoBehaviour
         }
 
         ShowAuthPanel();
+        _ = LoadSpecialtiesAsync();
     }
 
     private void OnDestroy()
@@ -65,14 +60,6 @@ public sealed class AuthController : MonoBehaviour
             _cts.Dispose();
             _cts = null;
         }
-
-        if (_vrKeyboard != null && _lineChangedHandler != null)
-        {
-            _vrKeyboard.CurrentLineChanged -= _lineChangedHandler;
-        }
-
-        _activeInput = null;
-        _lineChangedHandler = null;
     }
 
     public void ShowRegistrationPanel()
@@ -123,7 +110,7 @@ public sealed class AuthController : MonoBehaviour
 
         if (_loginInputReg == null || _passwordInputReg == null || _nameInputReg == null)
         {
-            SetRegStatus("РќРµ РЅР°СЃС‚СЂРѕРµРЅС‹ СЃСЃС‹Р»РєРё РЅР° РїРѕР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё");
+            SetRegStatus("Не настроены поля регистрации");
             return;
         }
 
@@ -133,33 +120,25 @@ public sealed class AuthController : MonoBehaviour
 
         if (string.IsNullOrEmpty(login))
         {
-            SetRegStatus("Р›РѕРіРёРЅ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
+            SetRegStatus("Логин не может быть пустым");
             return;
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            SetRegStatus("РџР°СЂРѕР»СЊ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
+            SetRegStatus("Пароль не может быть пустым");
             return;
         }
 
         if (string.IsNullOrEmpty(name))
         {
-            SetRegStatus("РРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј");
+            SetRegStatus("Имя не может быть пустым");
             return;
         }
 
-        int specialtyId = 1;
-        if (_specialtyBinder != null)
-        {
-            int s = _specialtyBinder.GetSelectedSpecialtyId();
-            if (s > 0)
-            {
-                specialtyId = s;
-            }
-        }
+        int specialtyId = GetSelectedSpecialtyId();
 
-        SetRegStatus("Р РµРіРёСЃС‚СЂР°С†РёСЏ...");
+        SetRegStatus("Регистрация...");
         ApiResult<AuthRegisterResultDto> res =
             await _authApi.RegisterAsync(login, password, name, specialtyId, _cts.Token);
 
@@ -171,13 +150,13 @@ public sealed class AuthController : MonoBehaviour
             }
             else
             {
-                SetAuthStatus("Р РµРіРёСЃС‚СЂР°С†РёСЏ СѓСЃРїРµС€РЅР°! Р’РѕР№РґРёС‚Рµ.");
+                SetAuthStatus("Регистрация успешна. Войдите.");
                 ShowAuthPanel();
             }
         }
         else
         {
-            SetRegStatus("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ");
+            SetRegStatus("Не удалось зарегистрироваться");
         }
     }
 
@@ -190,7 +169,7 @@ public sealed class AuthController : MonoBehaviour
 
         if (_loginInputAuth == null || _passwordInputAuth == null)
         {
-            SetAuthStatus("РќРµ РЅР°СЃС‚СЂРѕРµРЅС‹ СЃСЃС‹Р»РєРё РЅР° РїРѕР»СЏ РІС…РѕРґР°");
+            SetAuthStatus("Не настроены поля входа");
             return;
         }
 
@@ -199,7 +178,7 @@ public sealed class AuthController : MonoBehaviour
 
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
         {
-            SetAuthStatus("Р›РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹");
+            SetAuthStatus("Логин и пароль обязательны");
             return;
         }
 
@@ -208,7 +187,7 @@ public sealed class AuthController : MonoBehaviour
 
     private async Task LoginInternal(string login, string password)
     {
-        SetAuthStatus("Р’С…РѕРґ...");
+        SetAuthStatus("Вход...");
         ApiResult<AuthLoginResultDto> res = await _authApi.LoginAsync(login, password, _cts.Token);
 
         if (res.IsSuccess)
@@ -216,24 +195,26 @@ public sealed class AuthController : MonoBehaviour
             if (res.Data != null)
             {
                 if (!string.IsNullOrEmpty(res.Data.token))
+                {
                     JwtStorage.Save(res.Data.token);
+                }
 
                 UserSession.SaveSpecialtyId(res.Data.specialtyId);
                 UserSession.SaveIsFirstLogin(res.Data.isFirstLogin);
                 UserSession.SaveTutorialCompleted(res.Data.tutorialCompleted);
             }
 
-            SetAuthStatus("Р’С…РѕРґ СѓСЃРїРµС€РµРЅ.");
+            SetAuthStatus("Вход успешен.");
             if (!string.IsNullOrEmpty(_sceneAfterLogin))
+            {
                 SceneManager.LoadScene(_sceneAfterLogin);
+            }
         }
-
         else
         {
-            SetAuthStatus("РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ");
+            SetAuthStatus("Неверный логин или пароль");
         }
     }
-
 
     public void LoginAsGuest()
     {
@@ -241,6 +222,50 @@ public sealed class AuthController : MonoBehaviour
         {
             SceneManager.LoadScene(_guestScene);
         }
+    }
+
+    private async Task LoadSpecialtiesAsync()
+    {
+        if (_specialtyDropdown == null || _specialtiesApi == null)
+        {
+            _specialties = new List<SpecialtyDto>();
+            return;
+        }
+
+        _specialtyDropdown.ClearOptions();
+
+        ApiResult<List<SpecialtyDto>> res = await _specialtiesApi.GetAllAsync(_cts.Token);
+        if (res.IsSuccess == false || res.Data == null)
+        {
+            _specialties = new List<SpecialtyDto>();
+            return;
+        }
+
+        _specialties = res.Data;
+        for (int i = 0; i < _specialties.Count; i++)
+        {
+            TMP_Dropdown.OptionData opt = new TMP_Dropdown.OptionData();
+            opt.text = _specialties[i].name;
+            _specialtyDropdown.options.Add(opt);
+        }
+
+        _specialtyDropdown.RefreshShownValue();
+    }
+
+    private int GetSelectedSpecialtyId()
+    {
+        if (_specialties == null || _specialtyDropdown == null)
+        {
+            return 1;
+        }
+
+        int idx = _specialtyDropdown.value;
+        if (idx >= 0 && idx < _specialties.Count)
+        {
+            return _specialties[idx].id;
+        }
+
+        return 1;
     }
 
     private string ReadText(TMP_InputField field)
@@ -280,80 +305,4 @@ public sealed class AuthController : MonoBehaviour
             _errorTextAuth.text = text;
         }
     }
-
-    private void BindVrKeyboardListeners()
-    {
-        if (_vrKeyboard == null)
-        {
-            return;
-        }
-
-        if (_loginInputReg != null)
-        {
-            _loginInputReg.onSelect.AddListener(_ => OpenVrKeyboard(_loginInputReg));
-        }
-
-        if (_passwordInputReg != null)
-        {
-            _passwordInputReg.onSelect.AddListener(_ => OpenVrKeyboard(_passwordInputReg));
-        }
-
-        if (_nameInputReg != null)
-        {
-            _nameInputReg.onSelect.AddListener(_ => OpenVrKeyboard(_nameInputReg));
-        }
-
-        if (_loginInputAuth != null)
-        {
-            _loginInputAuth.onSelect.AddListener(_ => OpenVrKeyboard(_loginInputAuth));
-        }
-
-        if (_passwordInputAuth != null)
-        {
-            _passwordInputAuth.onSelect.AddListener(_ => OpenVrKeyboard(_passwordInputAuth));
-        }
-    }
-
-    private void OpenVrKeyboard(TMP_InputField field)
-    {
-        if (_vrKeyboard == null)
-        {
-            return;
-        }
-
-        if (_lineChangedHandler != null)
-        {
-            _vrKeyboard.CurrentLineChanged -= _lineChangedHandler;
-            _lineChangedHandler = null;
-        }
-
-        _activeInput = field;
-
-        _vrKeyboard.Clear();
-        _vrKeyboard.EnableDefaultSymbols();
-
-        if (field != null)
-        {
-            if (string.IsNullOrEmpty(field.text) == false)
-            {
-                _vrKeyboard.AddConsoleContent(field.text);
-            }
-
-            bool isPassword = field.contentType == TMP_InputField.ContentType.Password;
-            _vrKeyboard.IsPassword = isPassword;
-        }
-
-        _vrKeyboard.AllowInput = true;
-
-        _lineChangedHandler = (sender, value) =>
-        {
-            if (_activeInput != null)
-            {
-                _activeInput.text = value;
-            }
-        };
-        _vrKeyboard.CurrentLineChanged += _lineChangedHandler;
-
-    }
 }
-

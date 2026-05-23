@@ -1,7 +1,4 @@
 using System.Threading;
-using UltimateXR.Avatar;
-using UltimateXR.Core;
-using UltimateXR.Devices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VRCollege.Net.Dto;
@@ -20,6 +17,10 @@ public sealed class PanelsUIController : MonoBehaviour
     [Header("Session")]
     [SerializeField] private AuthApi _authApi;
     [SerializeField] private string _authScene = "AuthScene";
+
+    [Header("Input")]
+    [SerializeField] private OVRInput.Button _toggleButton = OVRInput.Button.One;
+    [SerializeField] private OVRInput.Controller _toggleController = OVRInput.Controller.LTouch;
 
     private CancellationTokenSource _cts;
     private bool _isLoggingOut;
@@ -46,7 +47,7 @@ public sealed class PanelsUIController : MonoBehaviour
 
     private void Update()
     {
-        if (UxrAvatar.LocalAvatarInput.GetButtonsPressDown(UxrHandSide.Left, UxrInputButtons.Button1))
+        if (OVRInput.GetDown(_toggleButton, _toggleController))
         {
             ToggleHud();
         }
