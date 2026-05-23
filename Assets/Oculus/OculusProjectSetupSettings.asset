@@ -14,20 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolProperties:
     keys:
-    - Meta.XR.SDK.c5ad2ac8b06a338d8874d28a074a9d83.Ignored.Standalone
-    - Meta.XR.SDK.6abdb39b0bf66ba7c04b0c267c7e2df8.Ignored.Standalone
-    - Meta.XR.SDK.c5ad2ac8b06a338d8874d28a074a9d83.Ignored.Android
-    - Meta.XR.SDK.6abdb39b0bf66ba7c04b0c267c7e2df8.Ignored.Android
-    - Meta.XR.SDK.edfb6eef6866b340551639f2f2c3213d.MarkedAsFixed.Standalone
-    - Meta.XR.SDK.31736735fee7ab217bea57cc359d9f23.MarkedAsFixed.Standalone
-    - Meta.XR.SDK.31736735fee7ab217bea57cc359d9f23.MarkedAsFixed.Android
-    - Meta.XR.SDK.edfb6eef6866b340551639f2f2c3213d.MarkedAsFixed.Android
-    - Meta.XR.SDK.9df3757562be36939cd036d680aa3e56.Ignored.Android
-    - Meta.XR.SDK.5c7289ec557af63ae9fe7dc8bb186ecb.Ignored.Standalone
-    - Meta.XR.SDK.9df3757562be36939cd036d680aa3e56.Ignored.Standalone
     - Meta.XR.SDK.5c7289ec557af63ae9fe7dc8bb186ecb.Ignored.Android
-    - Meta.XR.SDK.e958b7e7205af9907dee9c9d8e57b89a.Ignored.Android
-    - Meta.XR.SDK.e958b7e7205af9907dee9c9d8e57b89a.Ignored.Standalone
+    - Meta.XR.SDK.6abdb39b0bf66ba7c04b0c267c7e2df8.Ignored.Android
+    - Meta.XR.SDK.4aeb0c4701b1dd860da35734cac3063a.Ignored.Android
+    - Meta.XR.SDK.31736735fee7ab217bea57cc359d9f23.Ignored.Android
+    - Meta.XR.SDK.edfb6eef6866b340551639f2f2c3213d.Ignored.Android
+    - Meta.XR.SDK.5c7289ec557af63ae9fe7dc8bb186ecb.Ignored.Standalone
+    - Meta.XR.SDK.6abdb39b0bf66ba7c04b0c267c7e2df8.Ignored.Standalone
+    - Meta.XR.SDK.4aeb0c4701b1dd860da35734cac3063a.Ignored.Standalone
+    - Meta.XR.SDK.31736735fee7ab217bea57cc359d9f23.Ignored.Standalone
+    - Meta.XR.SDK.edfb6eef6866b340551639f2f2c3213d.Ignored.Standalone
+    - Meta.XR.SDK.494c28a58430812749592099819e7333.Ignored.Android
+    - Meta.XR.SDK.494c28a58430812749592099819e7333.Ignored.Standalone
+    - Meta.XR.SDK.dd7fa12a396d34545785f39519ab46f9.Ignored.Android
+    - Meta.XR.SDK.dd7fa12a396d34545785f39519ab46f9.Ignored.Standalone
     values: 0101010101010101010101010101
   intProperties:
     keys: []

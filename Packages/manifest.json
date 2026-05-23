@@ -13,7 +13,6 @@
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.9",
     "com.unity.xr.management": "4.5.3",
-    "com.unity.xr.oculus": "4.5.4",
     "com.unity.xr.openxr": "1.16.0",
     "com.vrmada.ultimatexr-unity": "git+https://github.com/VRMADA/ultimatexr-unity.git",
     "com.unity.modules.accessibility": "1.0.0",
