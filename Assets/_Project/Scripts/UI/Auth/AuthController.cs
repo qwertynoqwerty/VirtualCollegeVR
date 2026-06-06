@@ -190,19 +190,16 @@ public sealed class AuthController : MonoBehaviour
         SetAuthStatus("Вход...");
         ApiResult<AuthLoginResultDto> res = await _authApi.LoginAsync(login, password, _cts.Token);
 
-        if (res.IsSuccess)
+        if (res.IsSuccess && res.Data != null)
         {
-            if (res.Data != null)
+            if (!string.IsNullOrEmpty(res.Data.token))
             {
-                if (!string.IsNullOrEmpty(res.Data.token))
-                {
-                    JwtStorage.Save(res.Data.token);
-                }
-
-                UserSession.SaveSpecialtyId(res.Data.specialtyId);
-                UserSession.SaveIsFirstLogin(res.Data.isFirstLogin);
-                UserSession.SaveTutorialCompleted(res.Data.tutorialCompleted);
+                JwtStorage.Save(res.Data.token);
             }
+
+            UserSession.SaveSpecialtyId(res.Data.specialtyId);
+            UserSession.SaveIsFirstLogin(res.Data.isFirstLogin);
+            UserSession.SaveTutorialCompleted(res.Data.tutorialCompleted);
 
             SetAuthStatus("Вход успешен.");
             if (!string.IsNullOrEmpty(_sceneAfterLogin))
@@ -306,3 +303,4 @@ public sealed class AuthController : MonoBehaviour
         }
     }
 }
+

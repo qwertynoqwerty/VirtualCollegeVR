@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &764956598165109272
+--- !u!1001 &1492150148529633913
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -26,17 +26,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 604fd01be6acf6349923230b16403b27,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.6000004
+      value: 6.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 604fd01be6acf6349923230b16403b27,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.029999971
+      value: -0.029999733
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 604fd01be6acf6349923230b16403b27,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.417
+      value: -14.097
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 604fd01be6acf6349923230b16403b27,
         type: 3}
@@ -95,21 +95,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 604fd01be6acf6349923230b16403b27,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3509305579834073484}
+      addedObject: {fileID: 1477607461999108932}
   m_SourcePrefab: {fileID: 100100000, guid: 604fd01be6acf6349923230b16403b27, type: 3}
---- !u!1 &458454743337256777 stripped
+--- !u!1 &1762111928062871336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 604fd01be6acf6349923230b16403b27,
     type: 3}
-  m_PrefabInstance: {fileID: 764956598165109272}
+  m_PrefabInstance: {fileID: 1492150148529633913}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &3509305579834073484
+--- !u!65 &1477607461999108932
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458454743337256777}
+  m_GameObject: {fileID: 1762111928062871336}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

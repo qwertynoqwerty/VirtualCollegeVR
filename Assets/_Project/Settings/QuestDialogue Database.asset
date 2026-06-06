@@ -12,161 +12,321 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe5d0f66b3a4a83a02266fd776f653e, type: 3}
   m_Name: QuestDialogue Database
   m_EditorClassIdentifier: 
-  _defaultWrongSpecialtyLines: []
-  _defaultTutorialRequiredLines: []
   _entries:
   - npcId: 1
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439, \u044F
+        \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044C
+        \u043F\u043E \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u043C\u0443
+        \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044E. "
+      audioClip: {fileID: 8300000, guid: 1975b3178af7f8b41a5567a3e7cc8dd7, type: 3}
+    - text: "\u0423 \u043C\u0435\u043D\u044F \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0435\u0441\u0442\u044C \u0437\u0430\u0434\u0430\u043D\u0438\u0435."
+      audioClip: {fileID: 8300000, guid: 7638bc5922ffd8e458e84ce82c3031d5, type: 3}
+    - text: "\u041E\u0441\u043C\u043E\u0442\u0440\u0438 \u0432\u0441\u0435 \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440\u044B,
+        \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438 \u043D\u0435\u0438\u0441\u043F\u0440\u0430\u0432\u043D\u044B\u0439
+        \u0438 \u043F\u043E \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u0438
+        \u043F\u043E\u0434\u043E\u0439\u0434\u0438."
+      audioClip: {fileID: 8300000, guid: d020798ae1f1eba48befbc3185b7d63a, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0435 \u043D\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043E.
+        \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C
+        \u0432\u0441\u0435 \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440\u044B
+        \u043F\u043E\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u043D\u043E."
+      audioClip: {fileID: 8300000, guid: 85ae5d82ea3277540aec7b0cbea8319b, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u041D\u0435\u0438\u0441\u043F\u0440\u0430\u0432\u043D\u044B\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0439
+        \u0431\u043B\u043E\u043A \u043D\u0430\u0439\u0434\u0435\u043D. \u041C\u043E\u0436\u0435\u0448\u044C
+        \u0438\u0434\u0442\u0438."
+      audioClip: {fileID: 8300000, guid: 9d0de6dada197c745bbb9e81f9f360f2, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines:
-    - text: 
-      audioClip: {fileID: 0}
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442, \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: b26d5875631891d49a372cb13a9404a4, type: 3}
   - npcId: 2
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439. \u042F
+        \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u0438\u0441\u0442 \u043F\u043E
+        \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u043C\u0443 \u0432
+        \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440\u0435, \u043E\u0442
+        \u043C\u0430\u0442\u0435\u0440\u0438\u043D\u0441\u043A\u043E\u0439 \u043F\u043B\u0430\u0442\u044B
+        \u0434\u043E \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u043E\u043D\u043D\u043E\u0439
+        \u0441\u0438\u0441\u0442\u0435\u043C\u044B"
+      audioClip: {fileID: 8300000, guid: e516327b110b0f24cbe4e737b29e10ff, type: 3}
+    - text: "\u0423 \u043C\u0435\u043D\u044F \u043D\u0430 \u043F\u0430\u0440\u0430\u0445
+        \u0442\u044B \u0438\u0437\u0443\u0447\u0438\u0448\u044C \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0443
+        \u041F\u041A, \u043A\u0430\u043A\u0438\u0435 \u043A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442\u044B
+        \u0437\u0430 \u0447\u0442\u043E \u043E\u0442\u0432\u0435\u0447\u0430\u044E\u0442,
+        \u043A\u0430\u043A \u043E\u043D\u0438 \u0441\u0432\u044F\u0437\u0430\u043D\u044B
+        \u0438 \u043C\u043D\u043E\u0433\u043E\u0435 \u0434\u0440\u0443\u0433\u043E\u0435."
+      audioClip: {fileID: 8300000, guid: efbdaa581ba3a6a4ea7a9e355e51a063, type: 3}
+    - text: "\u0414\u0430\u0432\u0430\u0439 \u043F\u0440\u043E\u0432\u0435\u0440\u0438\u043C
+        \u0442\u0432\u043E\u0438 \u0437\u043D\u0430\u043D\u0438\u044F, \u043D\u0430
+        \u043F\u0430\u0440\u0442\u0435 \u0441\u0442\u043E\u0438\u0442 \u041F\u041A,
+        \u043E\u043D \u0440\u0430\u0437\u043E\u0431\u0440\u0430\u043D."
+      audioClip: {fileID: 8300000, guid: 68b8e4a7794ed6e42b9d5aad3c98e29f, type: 3}
+    - text: "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 \u0435\u0433\u043E,
+        \u0430 \u0438\u043C\u0435\u043D\u043D\u043E \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0435
+        \u043E\u043F\u0435\u0440\u0430\u0442\u0438\u0432\u043D\u0443\u044E \u043F\u0430\u043C\u044F\u0442\u044C,
+        \u0432\u0438\u0434\u0435\u043E\u043A\u0430\u0440\u0442\u0443 \u0438 \u0431\u043B\u043E\u043A
+        \u043F\u0438\u0442\u0430\u043D\u0438\u044F. \u041F\u043E \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u0438
+        \u043F\u043E\u0434\u043E\u0439\u0434\u0438 \u043A\u043E \u043C\u043D\u0435."
+      audioClip: {fileID: 8300000, guid: da7b17cd236c2c448abbc19ac3b04054, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u0421\u0431\u043E\u0440\u043A\u0430 \u043D\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430.
+        \u041F\u0440\u043E\u0432\u0435\u0440\u044C \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u043E\u0441\u0442\u044C
+        \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0438 \u043A\u0430\u0436\u0434\u043E\u0433\u043E
+        \u043A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442\u0430."
+      audioClip: {fileID: 8300000, guid: 67e67db9f0512e54ba2232901b5072cc, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u041F\u041A \u0441\u043E\u0431\u0440\u0430\u043D. \u0420\u0430\u0431\u043E\u0442\u0430
+        \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0430 \u0432\u0435\u0440\u043D\u043E.
+        \u0412\u0441\u0435\u0433\u043E \u0434\u043E\u0431\u0440\u043E\u0433\u043E."
+      audioClip: {fileID: 8300000, guid: 01d7daf544374ff45a729210110047c3, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442, \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: 7710f9b6a4262ff478cc5c90162d9570, type: 3}
   - npcId: 3
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439, \u044F
+        \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044C
+        \u0432 \u044D\u0442\u043E\u0439 \u0430\u0443\u0434\u0438\u0442\u043E\u0440\u0438\u0438.
+        \u0415\u0441\u0442\u044C \u043A \u0432\u0430\u043C \u043F\u0440\u043E\u0441\u044C\u0431\u0430."
+      audioClip: {fileID: 8300000, guid: 74d2791dd1411804cbb52724a99ddba3, type: 3}
+    - text: "\u0412\u0447\u0435\u0440\u0430 \u043A\u0442\u043E-\u0442\u043E \u0440\u0430\u0437\u043E\u0431\u0440\u0430\u043B
+        \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        \u0442\u0435\u0440\u043C\u0438\u043D\u0430\u043B, \u043D\u0443\u0436\u043D\u043E
+        \u0441\u043E\u0431\u0440\u0430\u0442\u044C \u0435\u0433\u043E."
+      audioClip: {fileID: 8300000, guid: 4ecf0645e54334c40a0a973d892276e8, type: 3}
+    - text: "\u0410 \u0441\u0435\u0439\u0447\u0430\u0441 \u043F\u043E\u0434\u043E\u0439\u0434\u0438
+        \u0438 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u0438 \u043C\u043E\u0434\u0443\u043B\u0438."
+      audioClip: {fileID: 8300000, guid: a296ed6752f6f9b4b991d2a43dee7402, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u0423\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0430 \u043D\u0435
+        \u043E\u043A\u043E\u043D\u0447\u0435\u043D\u0430. \u041F\u0440\u043E\u0432\u0435\u0440\u044C
+        \u0432\u0441\u0435 \u043C\u043E\u0434\u0443\u043B\u0438."
+      audioClip: {fileID: 8300000, guid: ebfeb0cc5e6dca346aab1d9d3effc43b, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u0420\u0430\u0431\u043E\u0442\u043E\u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u044C
+        \u0442\u0435\u0440\u043C\u0438\u043D\u0430\u043B\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0430."
+      audioClip: {fileID: 8300000, guid: 113001d0d96106b46914bff962827dd1, type: 3}
+    - text: "\u0421\u043F\u0430\u0441\u0438\u0431\u043E, \u043E\u0447\u0435\u043D\u044C
+        \u0432\u044B\u0440\u0443\u0447\u0438\u043B!"
+      audioClip: {fileID: 8300000, guid: 14ba25b8cbf7c76498f1ff1dc1ef8a8c, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442, \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: 5a710a01a55873743b7acc4dc0adcd53, type: 3}
   - npcId: 4
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439. \u042F
+        \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u044E \u043F\u043E\u0432\u0430\u0440\u0441\u043A\u043E\u0435
+        \u0434\u0435\u043B\u043E \u0432 \u043A\u043E\u043B\u043B\u0435\u0434\u0436\u0435,
+        \u0430 \u0442\u0430\u043A\u0436\u0435 \u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430
+        \u043E\u043A\u043E\u043B\u043E 10 \u043B\u0435\u0442 \u0448\u0435\u0444-\u043F\u043E\u0432\u0430\u0440\u043E\u043C
+        \u0432 \u0440\u0435\u0441\u0442\u043E\u0440\u0430\u043D\u0435."
+      audioClip: {fileID: 8300000, guid: 3a9ba294662a9b446b537d12f298a690, type: 3}
+    - text: "\u0412 \u043A\u0443\u043B\u0438\u043D\u0430\u0440\u0438\u0438 \u043E\u0447\u0435\u043D\u044C
+        \u0432\u0430\u0436\u043D\u0430 \u0441\u0432\u0435\u0436\u0435\u0441\u0442\u044C
+        \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0445
+        \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u0432, \u043F\u043E\u044D\u0442\u043E\u043C\u0443
+        \u0443 \u043C\u0435\u043D\u044F \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0435\u0441\u0442\u044C \u0437\u0430\u0434\u0430\u043D\u0438\u0435."
+      audioClip: {fileID: 8300000, guid: 16802e115ae87ce4e831e74ca25f8f7b, type: 3}
+    - text: "\u0422\u0435\u0431\u0435 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E
+        \u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u043E\u0432\u043E\u0449\u0438. \u0421\u0432\u0435\u0436\u0438\u0435 \u043F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u0435
+        \u0432 \u043B\u0435\u0432\u0443\u044E \u043A\u043E\u0440\u043E\u0431\u043A\u0443,
+        \u0438\u0441\u043F\u043E\u0440\u0447\u0435\u043D\u043D\u044B\u0435 - \u0432
+        \u043F\u0440\u0430\u0432\u0443\u044E. \u041F\u043E\u0441\u043B\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u044F
+        \u0434\u043E\u043B\u043E\u0436\u0438."
+      audioClip: {fileID: 8300000, guid: 1dd0cc88768ef544e99b05569529b6fa, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u0421\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435
+        \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430. \u041F\u043E\u0432\u0442\u043E\u0440\u043D\u043E
+        \u043F\u0440\u043E\u0432\u0435\u0440\u044C \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435
+        \u043A\u043E\u0440\u043E\u0431\u043E\u043A."
+      audioClip: {fileID: 8300000, guid: ad3d1acd1fbdae443bee1458a1d4415d, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u044B \u0440\u0430\u0441\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u044B
+        \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u043E. \u0421\u043F\u0430\u0441\u0438\u0431\u043E
+        \u0437\u0430 \u043F\u043E\u043C\u043E\u0449\u044C."
+      audioClip: {fileID: 8300000, guid: 8b65a5a9a77ec144c8bacc61da255587, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0442\u0435\u0431\u044F
+        \u0432\u0430\u0441 \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442,
+        \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: 9db5a0d969c9bc7428ff9d146e1c5ef6, type: 3}
   - npcId: 5
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439. \u042F
+        \u044F\u0432\u043B\u044F\u044E\u0441\u044C \u043F\u043E\u0432\u0430\u0440\u043E\u043C
+        \u0433\u043E\u0440\u044F\u0447\u0435\u0433\u043E \u0446\u0435\u0445\u0430."
+      audioClip: {fileID: 8300000, guid: 42fcf4445156ef94f9793c5e4d16af71, type: 3}
+    - text: "\u041C\u043D\u0435 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E
+        \u0447\u0442\u043E\u0431\u044B \u0432\u044B \u043F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u043B\u0438
+        \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u044B \u043D\u0430 \u0447\u0438\u0441\u0442\u044B\u0439
+        \u0441\u0442\u043E\u043B. \u041F\u0440\u043E\u0434\u0443\u043A\u0442\u044B
+        \u043D\u0430\u0445\u043E\u0434\u044F\u0442\u0441\u044F \u0441 \u043B\u0435\u0432\u043E\u0439
+        \u0441\u0442\u043E\u0440\u043E\u043D\u044B \u043F\u0440\u0438 \u0432\u0445\u043E\u0434\u0435.
+        \u041F\u0440\u0438\u0441\u0442\u0443\u043F\u0430\u0439\u0442\u0435."
+      audioClip: {fileID: 8300000, guid: 744d4bf33435de247840921e1d5fa730, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u041F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u044B \u043D\u0435
+        \u0432\u0441\u0435 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u044B. \u0412\u0435\u0440\u043D\u0438\u0441\u044C,
+        \u043A\u043E\u0433\u0434\u0430 \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u0448\u044C
+        \u043F\u0435\u0440\u0435\u043D\u043E\u0441 \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E."
+      audioClip: {fileID: 8300000, guid: dc0f48738c7b2aa488f7c9869bd3ea8f, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u0412\u0441\u0435 \u0438\u043D\u0433\u0440\u0435\u0434\u0438\u0435\u043D\u0442\u0435
+        \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u044B. \u0417\u0430\u0434\u0430\u043D\u0438\u0435
+        \u0437\u0430\u0441\u0447\u0438\u0442\u0430\u043D\u043E."
+      audioClip: {fileID: 8300000, guid: 84635ff0bc1f71d40bd8281eb5ec5225, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0442\u0435\u0431\u044F
+        \u0432\u0430\u0441 \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442,
+        \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: 1ea69e50e2e5e794681c4b171eb4eee8, type: 3}
   - npcId: 6
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u041F\u0440\u0438\u0432\u0435\u0442, \u043C\u043E\u0436\u0435\u0448\u044C
+        \u043C\u043D\u0435 \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430
+        \u043F\u043E\u043C\u043E\u0447\u044C."
+      audioClip: {fileID: 8300000, guid: 08b6fd53f39b6b946a1f027b6d65437e, type: 3}
+    - text: "\u042F \u043F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u0438\u043B\u0430
+        \u0431\u043B\u044E\u0434\u0430, \u043D\u043E \u0443 \u043C\u0435\u043D\u044F
+        \u043D\u0435\u0442 \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u043E\u0442\u043D\u0435\u0441\u0442\u0438
+        \u0438\u0445 \u043D\u0430 \u0441\u0442\u043E\u0439\u043A\u0443 \u043F\u043E\u0434\u0430\u0447\u0438,
+        \u043C\u043D\u0435 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E
+        \u0441\u043B\u0435\u0434\u0438\u0442\u044C \u0437\u0430 \u043F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u043B\u0435\u043D\u0438\u0435\u043C."
+      audioClip: {fileID: 8300000, guid: 2e5e990bd166fda4ebe8326e705d1df1, type: 3}
+    - text: "\u041C\u043E\u0436\u0435\u0448\u044C \u043E\u0442\u043D\u0435\u0441\u0442\u0438
+        \u0442\u0430\u0440\u0435\u043B\u043A\u0438 \u0441 \u0431\u043B\u044E\u0434\u0430\u043C\u0438
+        \u0432 \u0437\u043E\u043D\u0443 \u043F\u043E\u0434\u0430\u0447\u0438."
+      audioClip: {fileID: 8300000, guid: 067575a31ca494b4ab1a71bdcb940c8e, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u041E\u0442\u043D\u0435\u0441\u0438 \u0442\u0430\u0440\u0435\u043B\u043A\u0438
+        \u0432 \u0437\u043E\u043D\u0443 \u043F\u043E\u0434\u0430\u0447\u0438, \u0443
+        \u043C\u0435\u043D\u044F \u043D\u0435\u0442 \u0432\u0440\u0435\u043C\u0435\u043D\u0438
+        \u043D\u0430 \u044D\u0442\u043E, \u043C\u043D\u0435 \u043D\u0443\u0436\u043D\u043E
+        \u0441\u043B\u0435\u0434\u0438\u0442\u044C \u0437\u0430 \u0433\u043E\u0442\u043E\u0432\u043A\u043E\u0439."
+      audioClip: {fileID: 8300000, guid: d0383eaac27dbb741beadc307f261b0c, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u0422\u044B \u043E\u0442\u043D\u0435\u0441 \u0431\u043B\u044E\u0434\u0430,
+        \u0441\u043F\u0430\u0441\u0438\u0431\u043E \u0431\u043E\u043B\u044C\u0448\u043E\u0435
+        \u0437\u0430 \u043F\u043E\u043C\u043E\u0449\u044C."
+      audioClip: {fileID: 8300000, guid: 43b31fbf5065e5b44af60a3936afad11, type: 3}
+    - text: "\u0422\u0435\u043F\u0435\u0440\u044C \u044F \u0442\u043E\u0447\u043D\u043E
+        \u0443\u0441\u043F\u0435\u044E \u043F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u0438\u0442\u044C
+        \u0432\u0441\u0451 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0435."
+      audioClip: {fileID: 8300000, guid: 5000bcad2f4159244b9abb6d43c02a05, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442, \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: 4142919f2b0c57b41ad8d047d01631ee, type: 3}
   - npcId: 7
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439. \u041D\u0443\u0436\u043D\u043E
+        \u043E\u0442\u0441\u043A\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        QR-\u043A\u043E\u0434\u044B \u043D\u0430 \u044D\u0442\u0438\u0445 \u043A\u043E\u0440\u043E\u0431\u043A\u0430\u0445."
+      audioClip: {fileID: 8300000, guid: 2528af183f80cfa43b712be5030bfcb7, type: 3}
+    - text: "\u0414\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u0432\u043E\u0437\u044C\u043C\u0438
+        \u0441\u043A\u0430\u043D\u0435\u0440, \u043D\u0430\u0439\u0434\u0438 \u043D\u0430
+        \u0442\u043E\u0432\u0430\u0440\u0435 \u043C\u0435\u0442\u043A\u0443, \u043D\u0430\u043F\u0440\u0430\u0432\u044C
+        \u043D\u0430 \u0442\u043E\u0432\u0430\u0440 \u0438 \u043D\u0430\u0436\u043C\u0438\u0442\u0435
+        \u043A\u043D\u043E\u043F\u043A\u0443 \u0441\u043A\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F."
+      audioClip: {fileID: 8300000, guid: c4c12021a1fb12b48b9ac1e9c16c4f0c, type: 3}
+    - text: "\u0422\u0430\u043A \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E
+        \u0441\u0434\u0435\u043B\u0430\u0442\u044C \u0441 \u043A\u0430\u0436\u0434\u044B\u043C
+        \u0442\u043E\u0432\u0430\u0440\u043E\u043C."
+      audioClip: {fileID: 8300000, guid: 79901afc9426a454fb9b68b88fa1801e, type: 3}
+    - text: "\u041F\u043E\u0441\u043B\u0435 \u0441\u043A\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
+        \u0432\u0441\u0435\u0445 \u043F\u043E\u0437\u0438\u0446\u0438\u0439 \u0434\u043E\u043B\u043E\u0436\u0438\u0442\u0435."
+      audioClip: {fileID: 8300000, guid: 95a0aca82f705f2498269df58b651c82, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u0421\u043A\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435
+        \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E \u043D\u0435 \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E.
+        \u041F\u0440\u043E\u0432\u0435\u0440\u044C \u0432\u0441\u0435 \u043F\u043E\u0437\u0438\u0446\u0438\u0438."
+      audioClip: {fileID: 8300000, guid: 087ae45141f7ac1489975bd4ed74b6a5, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u0412\u0441\u0435 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u043E\u0442\u0441\u043A\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u044B.
+        \u0414\u0430\u043D\u043D\u044B\u0435 \u0432\u043D\u0435\u0441\u0435\u043D\u044B.
+        \u0417\u0430\u0434\u0430\u043D\u0438\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043E."
+      audioClip: {fileID: 8300000, guid: 0a9f96b2551b3b541be9f06fbb877ac6, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442, \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: 3dd3acc2625683e44aac6e137f85da66, type: 3}
   - npcId: 8
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439, \u0443
+        \u043C\u0435\u043D\u044F \u043A \u0442\u0435\u0431\u0435 \u0435\u0441\u0442\u044C
+        \u043F\u0440\u043E\u0441\u044C\u0431\u0430. \u0412\u0447\u0435\u0440\u0430
+        \u044F \u0441\u043E\u0440\u0432\u0430\u043B \u0441\u0435\u0431\u0435 \u0441\u043F\u0438\u043D\u0443
+        \u0438, \u043A \u0441\u043E\u0436\u0430\u043B\u0435\u043D\u0438\u044E, \u043D\u0435
+        \u043C\u043E\u0433\u0443 \u0442\u0435\u043F\u0435\u0440\u044C \u043D\u0438\u043A\u0430\u043A
+        \u043D\u0430\u0433\u043D\u0443\u0442\u044C\u0441\u044F."
+      audioClip: {fileID: 8300000, guid: 08ae5e81347e3de47bdf4d51c3ee5655, type: 3}
+    - text: "\u0412\u043E\u0437\u044C\u043C\u0438 \u044D\u0442\u0438 \u043A\u043E\u0440\u043E\u0431\u043A\u0438
+        \u0438 \u043F\u0435\u0440\u0435\u043D\u0435\u0441\u0438\u0442\u0435 \u0438\u0445
+        \u0432 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u0443\u044E \u0437\u043E\u043D\u0443
+        \u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F."
+      audioClip: {fileID: 8300000, guid: 5fa8339f4d1a9484b8ffcac42f34279d, type: 3}
+    - text: "\u041A\u0430\u043A \u0441\u043F\u0440\u0430\u0432\u0438\u0448\u044C\u0441\u044F,
+        \u0432\u0435\u0440\u043D\u0438\u0441\u044C \u043A\u043E \u043C\u043D\u0435."
+      audioClip: {fileID: 8300000, guid: 95740928e18308c4495291387797e41c, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u041F\u0435\u0440\u0435\u043D\u043E\u0441 \u043A\u043E\u0440\u043E\u0431\u043E\u043A
+        \u043D\u0435 \u043E\u043A\u043E\u043D\u0447\u0435\u043D. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435
+        \u0437\u043E\u043D\u0443 \u043F\u0440\u0438\u0451\u043C\u043A\u0438."
+      audioClip: {fileID: 8300000, guid: 863b15d3a5a4bd249b7fd1f8bf47534d, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u0421\u043F\u0430\u0441\u0438\u0431\u043E \u0447\u0442\u043E \u043F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u043B
+        \u043A\u043E\u0440\u043E\u0431\u043A\u0438, \u043D\u0435 \u0437\u043D\u0430\u044E,
+        \u0447\u0442\u043E\u0431\u044B \u044F \u0434\u0435\u043B\u0430\u043B \u0431\u0435\u0437
+        \u0442\u0435\u0431\u044F."
+      audioClip: {fileID: 8300000, guid: 92154d60e10148a4c95043aaaacde812, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442, \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: af06498f1a8cd83468705f2682fb0816, type: 3}
   - npcId: 9
     startQuestLines:
-    - text: "\u0421\u0442\u0430\u0440\u0442 \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: 0df8eecf9e8570645a4f906d51723b8a, type: 3}
+    - text: "\u0414\u0435\u043D\u044C \u0434\u043E\u0431\u0440\u044B\u0439, \u0432\u0438\u0436\u0443
+        \u0442\u044B \u0442\u0443\u0442 \u043D\u043E\u0432\u0435\u043D\u044C\u043A\u0438\u0439."
+      audioClip: {fileID: 8300000, guid: c727ee02cc0762e489be597127f8e217, type: 3}
+    - text: "\u041C\u043E\u0436\u0435\u0448\u044C \u043F\u043E\u043C\u043E\u0447\u044C?
+        \u041C\u043D\u0435 \u043D\u0443\u0436\u043D\u043E \u0441\u0432\u0435\u0440\u0438\u0442\u044C
+        \u043A\u043E\u0440\u043E\u0431\u043A\u0438 \u0438 \u0440\u0430\u0441\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u043F\u043E \u043C\u0430\u0440\u043A\u0438\u0440\u043E\u0432\u043A\u0435,
+        \u0430 \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442."
+      audioClip: {fileID: 8300000, guid: 844b6c957282d24479afab3d31743303, type: 3}
+    - text: "\u0420\u0430\u0437\u043B\u043E\u0436\u0438\u0442\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B
+        \u043F\u043E \u0437\u043E\u043D\u0430\u043C \u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F
+        \u0441\u043E\u0433\u043B\u0430\u0441\u043D\u043E \u043C\u0430\u0440\u043A\u0438\u0440\u043E\u0432\u043A\u0435,
+        \u0430 \u044F \u043F\u043E\u043A\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u044E
+        \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043A\u043E\u0440\u043E\u0431\u043E\u043A."
+      audioClip: {fileID: 8300000, guid: 63acda78d2f6d094c8db2b74519d3c3c, type: 3}
+    - text: "\u041A\u0430\u043A \u0437\u0430\u043A\u043E\u043D\u0447\u0438\u0448\u044C
+        \u043F\u043E\u0434\u043E\u0439\u0434\u0438 \u043A\u043E \u043C\u043D\u0435."
+      audioClip: {fileID: 8300000, guid: 8d338d0b4aec97c469578a0d03db91f7, type: 3}
     inProgressRepeatLines:
-    - text: "\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 35183e6731b64d145935c2e40974c4ca, type: 3}
+    - text: "\u0420\u0430\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0430 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0430
+        \u0441 \u043E\u0448\u0438\u0431\u043A\u0430\u043C\u0438. \u0421\u0432\u0435\u0440\u044C
+        \u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435
+        \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u043E\u0432 \u0441 \u043C\u0430\u0440\u043A\u0438\u0440\u043E\u0432\u043A\u043E\u0439
+        \u0441\u0442\u0435\u043B\u043B\u0430\u0436\u0435\u0439."
+      audioClip: {fileID: 8300000, guid: 08bf16c70d1f2d94288c1659747dfb5a, type: 3}
     completeQuestLines:
-    - text: "\u0424\u0438\u043D\u0430\u043B \u043A\u0432\u0435\u0441\u0442"
-      audioClip: {fileID: 8300000, guid: c697fe981e2d83947912c6b91f8a838c, type: 3}
+    - text: "\u0422\u044B \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B \u043C\u043E\u044E
+        \u043F\u0440\u043E\u0441\u044C\u0431\u0443, \u0441\u043F\u0430\u0441\u0438\u0431\u043E."
+      audioClip: {fileID: 8300000, guid: 48324b6e8f6bb8c4692b4c4f44e58d18, type: 3}
+    - text: "\u041F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u0440\u0430\u0437\u043C\u0435\u0449\u0435\u043D\u044B
+        \u0441\u043E\u0433\u043B\u0430\u0441\u043D\u043E \u0441\u0445\u0435\u043C\u0435
+        \u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F."
+      audioClip: {fileID: 8300000, guid: a652a7ad0a55f314ea98a73a2e39dfff, type: 3}
     completedRepeatLines:
-    - text: "\u0423\u0436\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0438\u043B"
-      audioClip: {fileID: 8300000, guid: 20ab4282c70b1264ba687c0c5c2569eb, type: 3}
-    wrongSpecialtyLines:
-    - text: "\u041D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E"
-      audioClip: {fileID: 8300000, guid: 49eb305af6d60974a8b8dccfd5bc381f, type: 3}
-    tutorialRequiredLines: []
+    - text: "\u0417\u0430\u0434\u0430\u043D\u0438\u0439 \u0434\u043B\u044F \u0442\u0435\u0431\u044F
+        \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442, \u0441\u0442\u0443\u043F\u0430\u0439."
+      audioClip: {fileID: 8300000, guid: 9a4a4fd94e4881940aec8c8e990d0625, type: 3}
