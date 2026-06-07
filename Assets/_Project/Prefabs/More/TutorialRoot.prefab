@@ -442,7 +442,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1206710211782134343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,12 +586,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panel: {fileID: 2938544020952350158}
   _actionButton: {fileID: 1804425511429225807}
-  _actionButtonText: {fileID: 5721473020202700881}
   _dialoguePlayer: {fileID: 4185982485981275027}
   _tutorialProfile: {fileID: 11400000, guid: 331cac772f4e5ce4db1db1b84944a219, type: 2}
-  _labelStart: "\u041D\u0430\u0447\u0430\u0442\u044C \u0437\u043D\u0430\u043A\u043E\u043C\u0441\u0442\u0432\u043E"
-  _labelContinue: "\u0414\u0430\u043B\u0435\u0435"
-  _labelFinish: "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C"
 --- !u!114 &7461370921419797019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,10 +605,6 @@ MonoBehaviour:
   _curatorNpc: {fileID: 0}
   _gymNpc: {fileID: 0}
   _studyOfficeNpc: {fileID: 0}
-  _informationSystemsNpc: {fileID: 0}
-  _culinaryNpc: {fileID: 0}
-  _mtoNpc: {fileID: 0}
-  _completedToast: "\u041E\u0431\u0443\u0447\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E"
 --- !u!1 &3636106725978067243
 GameObject:
   m_ObjectHideFlags: 0

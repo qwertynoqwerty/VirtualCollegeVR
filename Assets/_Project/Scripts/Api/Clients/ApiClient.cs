@@ -29,6 +29,7 @@ public sealed class ApiClient : MonoBehaviour
         using (UnityWebRequest req = UnityWebRequest.Get(BuildUrl(path)))
         {
             AttachAuth(req);
+            AttachEditorCertificateHandler(req);
             req.downloadHandler = new DownloadHandlerBuffer();
             if (_timeoutSeconds > 0)
             {
@@ -64,6 +65,7 @@ public sealed class ApiClient : MonoBehaviour
         using (UnityWebRequest req = new UnityWebRequest(BuildUrl(path), "POST"))
         {
             AttachAuth(req);
+            AttachEditorCertificateHandler(req);
             req.uploadHandler = new UploadHandlerRaw(payload);
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
@@ -128,6 +130,16 @@ public sealed class ApiClient : MonoBehaviour
         {
             req.SetRequestHeader("Authorization", "Bearer " + token);
         }
+    }
+
+    private void AttachEditorCertificateHandler(UnityWebRequest req)
+    {
+#if UNITY_EDITOR
+        if (_env != null && _env.AllowInsecureEditorCertificate)
+        {
+            req.certificateHandler = new EditorOnlyAcceptAllCertificateHandler();
+        }
+#endif
     }
 
     private ApiResult<T> HandleResponse<T>(UnityWebRequest req)
@@ -209,6 +221,16 @@ public sealed class ApiClient : MonoBehaviour
         }
     }
 }
+
+#if UNITY_EDITOR
+internal sealed class EditorOnlyAcceptAllCertificateHandler : CertificateHandler
+{
+    protected override bool ValidateCertificate(byte[] certificateData)
+    {
+        return true;
+    }
+}
+#endif
 
 public struct ApiResult<T>
 {

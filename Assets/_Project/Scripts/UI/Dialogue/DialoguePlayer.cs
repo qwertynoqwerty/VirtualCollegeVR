@@ -34,7 +34,7 @@ public sealed class DialoguePlayer : MonoBehaviour
             _textLabel.gameObject.SetActive(false);
         }
 
-        if (_autoToggleRoot && _dialogueRoot != null)
+        if (CanAutoToggleRoot())
         {
             _dialogueRoot.SetActive(false);
         }
@@ -150,7 +150,7 @@ public sealed class DialoguePlayer : MonoBehaviour
 
     private void ShowDialogueUi()
     {
-        if (_autoToggleRoot && _dialogueRoot != null && !_dialogueRoot.activeSelf)
+        if (CanAutoToggleRoot() && !_dialogueRoot.activeSelf)
         {
             _dialogueRoot.SetActive(true);
         }
@@ -169,9 +169,14 @@ public sealed class DialoguePlayer : MonoBehaviour
             _audioSource.Stop();
         }
 
-        if (_autoToggleRoot && _dialogueRoot != null && _dialogueRoot.activeSelf)
+        if (CanAutoToggleRoot() && _dialogueRoot.activeSelf)
         {
             _dialogueRoot.SetActive(false);
         }
+    }
+
+    private bool CanAutoToggleRoot()
+    {
+        return _autoToggleRoot && _dialogueRoot != null && _dialogueRoot != gameObject;
     }
 }

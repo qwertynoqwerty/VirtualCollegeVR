@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90d395759c47844a858dde6abfbd048, type: 3}
   m_Name: BaseURL
   m_EditorClassIdentifier: 
-  _baseUrl: http://localhost:5186
+  _baseUrl: https://159.194.227.65.sslip.io
+  _allowInsecureEditorCertificate: 1

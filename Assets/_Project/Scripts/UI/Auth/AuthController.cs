@@ -197,10 +197,9 @@ public sealed class AuthController : MonoBehaviour
                 JwtStorage.Save(res.Data.token);
             }
 
+            UserSession.SaveUserId(res.Data.userId);
             UserSession.SaveSpecialtyId(res.Data.specialtyId);
-            UserSession.SaveIsFirstLogin(res.Data.isFirstLogin);
             UserSession.SaveTutorialCompleted(res.Data.tutorialCompleted);
-
             SetAuthStatus("Вход успешен.");
             if (!string.IsNullOrEmpty(_sceneAfterLogin))
             {

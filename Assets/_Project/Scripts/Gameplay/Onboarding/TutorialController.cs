@@ -1,8 +1,10 @@
-﻿using System.Threading;
 using System;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VRCollege.Net;
+using VRCollege.Net.Dto;
 
 public sealed class TutorialController : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public sealed class TutorialController : MonoBehaviour
     [Header("Dialogue")]
     [SerializeField] private DialoguePlayer _dialoguePlayer;
     [SerializeField] private TutorialDialogueProfile _tutorialProfile;
+    [SerializeField] private ProfileApi _profileApi;
 
     private bool _autoShowWhenTutorialIncomplete = true;
 
@@ -20,6 +23,8 @@ public sealed class TutorialController : MonoBehaviour
     private bool _isActive;
     private bool _isSequenceRunning;
     private CancellationTokenSource _cts;
+    private Canvas _ownPanelCanvas;
+    private GraphicRaycaster _ownPanelRaycaster;
 
     public event Action Completed;
 
@@ -35,6 +40,17 @@ public sealed class TutorialController : MonoBehaviour
         if (_actionButton != null)
         {
             _actionButton.onClick.AddListener(OnActionButtonPressed);
+        }
+
+        if (_profileApi == null)
+        {
+            _profileApi = FindFirstObjectByType<ProfileApi>(FindObjectsInactive.Include);
+        }
+
+        if (_panel == gameObject)
+        {
+            _ownPanelCanvas = GetComponent<Canvas>();
+            _ownPanelRaycaster = GetComponent<GraphicRaycaster>();
         }
     }
 
@@ -53,26 +69,34 @@ public sealed class TutorialController : MonoBehaviour
         }
     }
 
-    private void Start()
+    private async void Start()
     {
-        HidePanel();
-
         if (_autoShowWhenTutorialIncomplete == false)
+        {
+            HidePanel();
+            return;
+        }
+
+        bool tutorialCompleted = await ResolveTutorialCompletedAsync();
+        if (_cts == null || _cts.IsCancellationRequested)
         {
             return;
         }
 
-        if (UserSession.LoadTutorialCompleted() == false)
+        if (tutorialCompleted)
         {
-            ShowPanel();
+            HidePanel();
+            return;
         }
+
+        ShowPanel();
     }
 
     private void Update()
     {
-        if (_isActive && _panel != null && _panel.activeSelf == false)
+        if (_isActive && IsPanelVisible() == false)
         {
-            _panel.SetActive(true);
+            SetPanelVisible(true);
         }
     }
 
@@ -91,20 +115,13 @@ public sealed class TutorialController : MonoBehaviour
             _dialoguePlayer.SetAutoToggleRoot(false);
         }
 
-        if (_panel != null)
-        {
-            _panel.SetActive(true);
-        }
+        SetPanelVisible(true);
     }
 
     public void HidePanel()
     {
         _isActive = false;
-
-        if (_panel != null)
-        {
-            _panel.SetActive(false);
-        }
+        SetPanelVisible(false);
     }
 
     public async void OnActionButtonPressed()
@@ -164,5 +181,65 @@ public sealed class TutorialController : MonoBehaviour
             HidePanel();
             Completed?.Invoke();
         }
+    }
+
+    private async System.Threading.Tasks.Task<bool> ResolveTutorialCompletedAsync()
+    {
+        if (_profileApi != null)
+        {
+            ApiResult<ProfileDto> res = await _profileApi.GetProfileAsync();
+            if (res.IsSuccess && res.Data != null)
+            {
+                UserSession.SaveTutorialCompleted(res.Data.tutorialCompleted);
+                Debug.Log("[TutorialController] Tutorial state loaded from server: " + res.Data.tutorialCompleted);
+                return res.Data.tutorialCompleted;
+            }
+
+            Debug.LogWarning("[TutorialController] Profile request failed. Falling back to local tutorial state. Error: " + res.Error);
+        }
+
+        bool hasCachedState = UserSession.TryLoadTutorialCompleted(out bool cachedCompleted);
+        Debug.Log("[TutorialController] Tutorial state loaded from cache. HasState: " + hasCachedState + ", Completed: " + cachedCompleted);
+        return hasCachedState && cachedCompleted;
+    }
+
+    private bool IsPanelVisible()
+    {
+        if (_panel == null)
+        {
+            return false;
+        }
+
+        if (_panel == gameObject && _ownPanelCanvas != null)
+        {
+            return _ownPanelCanvas.enabled;
+        }
+
+        return _panel.activeSelf;
+    }
+
+    private void SetPanelVisible(bool visible)
+    {
+        if (_panel == null)
+        {
+            return;
+        }
+
+        if (_panel == gameObject)
+        {
+            if (_ownPanelCanvas != null)
+            {
+                _ownPanelCanvas.enabled = visible;
+            }
+
+            if (_ownPanelRaycaster != null)
+            {
+                _ownPanelRaycaster.enabled = visible;
+            }
+
+            return;
+        }
+
+        _panel.SetActive(visible);
     }
 }

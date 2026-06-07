@@ -43,9 +43,9 @@ public sealed class OnboardingFlowController : MonoBehaviour
         InitializeNpc(_studyOfficeNpc);
     }
 
-    private void Start()
+    private async void Start()
     {
-        _isCompleted = UserSession.LoadTutorialCompleted();
+        _isCompleted = await ResolveTutorialCompletedAsync();
         ApplyNpcAvailability();
     }
 
@@ -103,6 +103,26 @@ public sealed class OnboardingFlowController : MonoBehaviour
         }
 
         _isCompleting = false;
+    }
+
+    private async Task<bool> ResolveTutorialCompletedAsync()
+    {
+        if (_profileApi != null)
+        {
+            ApiResult<ProfileDto> res = await _profileApi.GetProfileAsync();
+            if (res.IsSuccess && res.Data != null)
+            {
+                UserSession.SaveTutorialCompleted(res.Data.tutorialCompleted);
+                Debug.Log("[OnboardingFlowController] Tutorial state loaded from server: " + res.Data.tutorialCompleted);
+                return res.Data.tutorialCompleted;
+            }
+
+            Debug.LogWarning("[OnboardingFlowController] Profile request failed. Falling back to local tutorial state. Error: " + res.Error);
+        }
+
+        bool hasCachedState = UserSession.TryLoadTutorialCompleted(out bool cachedCompleted);
+        Debug.Log("[OnboardingFlowController] Tutorial state loaded from cache. HasState: " + hasCachedState + ", Completed: " + cachedCompleted);
+        return hasCachedState && cachedCompleted;
     }
 
     private void ApplyNpcAvailability()
