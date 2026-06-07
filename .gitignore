@@ -28,9 +28,6 @@ sysinfo.txt
 *.sln
 *.svd
 
-# ========== JetBrains Rider ==========
-.idea/
-*.sln.iml
 
 # ========== OS generated ==========
 .DS_Store
