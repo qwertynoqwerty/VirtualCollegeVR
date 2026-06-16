@@ -62,7 +62,7 @@
 1. Склонируйте репозиторий:
 
 ```bash
-git clone https://github.com/qwertynoqwerty/VRCollegeVR.git
+git clone https://github.com/qwertynoqwerty/VirtualCollegeVR.git
 ```
 
 2. Откройте проект в **Unity 6**.
